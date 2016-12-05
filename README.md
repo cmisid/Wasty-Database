@@ -2,25 +2,20 @@
 
 ## Installation
 
-## Toolchain
-
-**Démarrage du serveur de développement**
+Il faut au préalable avoir installé Python 3. Pour cela [la distribution Anaconda](https://www.continuum.io/downloads) est recommandée. De plus il fortement conseillé d'utiliser un [environnement virtuel](http://conda.pydata.org/docs/using/envs.html).
 
 ```sh
-python manage.py runserver
+cd /chemin/vers/application/
+pip install -r setup/requirements.txt
+pip install -r setup/dev-requirements.txt
 ```
 
-**Effectuer une migration de base de données**
+## Développement
 
-Pour modifier le schéma de la base de données, il faut:
+Vous pouvez lancer `python manage.py` pour afficher une liste de commandes à dispositions. Les plus fréquentes d'utilisation sont:
 
-- Modifier les classes nécessaires
-- Générer la migration pour les application touchées. Par exemple pour l'application `public`:
-    - `python makemigrations public`
-    - `python migrate`
-
-**Création d’un utilisateur administrateur¶**
-
-```sh
-python manage.py createsuperuser
-```
+- `python manage.py runserver` pour lancer l'application en local.
+- `python manage.py makemigrations <app>` pour créer des fichiers de migration (`<app>` est par exemple `public`).
+- `python manage.py migrate` pour effectuer les migrations en retard.
+- `python manage.py createsuperuser` pour créer un utilisateur administrateur.
+- `python manage.py generate_fake_data` pour remplir la base de données avec des données simulées (oui, vraiment!).

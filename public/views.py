@@ -1,5 +1,11 @@
-from django.http import HttpResponse
+from rest_framework import viewsets
+
+from .models import Item
+
+from .serializers import ItemSerializer
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the public index.")
+class ItemViewSet(viewsets.ModelViewSet):
+
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer

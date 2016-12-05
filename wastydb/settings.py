@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jet.dashboard',
+    'jet',  # Modern template for Django admin interface with improved functionality
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

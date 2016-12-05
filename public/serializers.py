@@ -26,5 +26,6 @@ class ItemSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'pub_date',
-            'pub_person'
+            'pub_person',
+            'img_url'
         )

@@ -15,7 +15,6 @@ En plus de Django, les librairies externes utilisées sont
 - [django-autofixture](https://github.com/gregmuellegger/django-autofixture) pour la simulation de données factices.
 - [djangorestframework](http://www.django-rest-framework.org/) pour l'API REST.
 
-## Développement
 
 Vous pouvez lancer `python manage.py` pour afficher une liste de commandes à dispositions. Les plus fréquentes d'utilisation sont:
 

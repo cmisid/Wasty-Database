@@ -4,5 +4,39 @@ from .models import Item
 from .models import Person
 
 
-admin.site.register(Item)
-admin.site.register(Person)
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'first_name',
+        'last_name',
+        'birth_date',
+        'join_date'
+    )
+
+    ordering = (
+        'first_name',
+        'last_name'
+    )
+
+    search_fields = list_display
+    ordering = list_display
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'name',
+        'description',
+        'pub_date',
+        'pub_person',
+        'img_url'
+    )
+
+    ordering = (
+        'name'
+    )
+
+    search_fields = list_display
+    ordering = list_display

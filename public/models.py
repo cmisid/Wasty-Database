@@ -17,6 +17,9 @@ class Person(models.Model):
     def full_name(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
+    def __str__(self):
+        return self.full_name
+
 
 class Item(models.Model):
 
@@ -27,5 +30,13 @@ class Item(models.Model):
 
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=1024)
+    img_url = models.CharField(max_length=200, null=True)
     pub_date = models.DateTimeField('Date published', auto_now_add=True)
     pub_person = models.ForeignKey(Person, on_delete=models.CASCADE)
+
+    @property
+    def render_image(self):
+        return '<img src="{}"/>'.format(self.img_url)
+
+    def __str__(self):
+        return self.name

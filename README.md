@@ -14,8 +14,8 @@ pip install -r setup/dev-requirements.txt
 
 Vous pouvez lancer `python manage.py` pour afficher une liste de commandes à dispositions. Les plus fréquentes d'utilisation sont:
 
-- `python manage.py runserver` pour lancer l'application en local.
-- `python manage.py makemigrations <app>` pour créer des fichiers de migration (`<app>` est par exemple `public`).
-- `python manage.py migrate` pour effectuer les migrations en retard.
-- `python manage.py createsuperuser` pour créer un utilisateur administrateur.
-- `python manage.py generate_fake_data` pour remplir la base de données avec des données simulées (oui, vraiment!).
+- `python manage.py runserver` pour lancer l'application en local
+- `python manage.py makemigrations <app>` pour créer des fichiers de migration (`<app>` est par exemple `public`)
+- `python manage.py migrate` pour effectuer les migrations en retard
+- `python manage.py createsuperuser` pour créer un utilisateur administrateur
+- `python manage.py generate_fake_data` pour remplir la base de données avec des données simulées (oui, vraiment!)

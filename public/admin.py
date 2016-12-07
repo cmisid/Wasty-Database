@@ -28,15 +28,15 @@ class ItemAdmin(admin.ModelAdmin):
 
     list_display = (
         'name',
-        'description',
+        'little_description',
         'pub_date',
         'pub_person',
-        'img_url'
+        'render_image'
     )
 
     ordering = (
-        'name'
+        'name',
     )
 
     search_fields = list_display
-    ordering = list_display
+    ordering = ordering

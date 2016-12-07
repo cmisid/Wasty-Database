@@ -1,24 +1,24 @@
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class Person(models.Model):
+class User(AbstractUser):
 
     class Meta:
-        db_table = 'persons'
-        verbose_name_plural = 'Persons'
+        db_table = 'users'
+        verbose_name_plural = 'Users'
         ordering = ('join_date',)
 
-    first_name = models.CharField(verbose_name='First name', max_length=50)
-    last_name = models.CharField(verbose_name='Last name', max_length=100)
-    birth_date = models.DateField(verbose_name='Date of birth')
-    join_date = models.DateField(verbose_name='Date of birth', auto_now_add=True)
+    birth_date = models.DateField(verbose_name='Birthdate', null=True)
+    join_date = models.DateField(verbose_name='Joined', auto_now_add=True)
 
     @property
     def full_name(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
     def __str__(self):
-        return self.full_name
+        return self.get_full_name()
 
 
 class Item(models.Model):
@@ -32,7 +32,7 @@ class Item(models.Model):
     description = models.CharField(max_length=1024)
     img_url = models.CharField(max_length=200, null=True)
     pub_date = models.DateTimeField('Date published', auto_now_add=True)
-    pub_person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    pub_person = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     @property
     def render_image(self):

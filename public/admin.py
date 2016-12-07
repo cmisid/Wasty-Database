@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 from .models import Item
-from .models import Person
+from .models import User
 
 
-@admin.register(Person)
-class PersonAdmin(admin.ModelAdmin):
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
 
     list_display = (
         'first_name',

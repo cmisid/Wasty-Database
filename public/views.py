@@ -1,13 +1,13 @@
-from rest_framework import viewsets
+from rest_framework import permissions, viewsets
 
 from .models import (
     Item,
-    Person
+    User
 )
 
 from .serializers import (
     ItemSerializer,
-    PersonSerializer
+    UserSerializer
 )
 
 
@@ -17,7 +17,11 @@ class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
 
 
-class PersonViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
 
-    queryset = Person.objects.all()
-    serializer_class = PersonSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    permission_classes = [
+        permissions.AllowAny # Or else anon users can't register
+    ]

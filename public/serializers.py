@@ -1,31 +1,35 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from .models import Item
-from .models import Person
+from .models import (
+    Item,
+    User
+)
 
 
-class PersonSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Person
+        model = User
         fields = (
             'id',
             'first_name',
             'last_name',
-            'birth_date',
-            'join_date'
+            'password'
         )
+
+    password = serializers.CharField(write_only=True)
+
+    def create(self, validated_data):
+        user_model = get_user_model()
+        password = validated_data.pop('password')
+        user = user_model.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
 
 
 class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = (
-            'id',
-            'name',
-            'description',
-            'pub_date',
-            'pub_person',
-            'img_url'
-        )

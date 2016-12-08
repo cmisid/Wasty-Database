@@ -18,12 +18,10 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    url(r'^public/', include('public.urls')),
-    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     # API
     url(r'^', include('public.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # Admin
     url(r'^admin/', admin.site.urls),
+    url(r'^jet/', include('jet.urls', 'jet')), # Django JET
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')), # Django JET dashboard
 ]

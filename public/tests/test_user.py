@@ -1,5 +1,4 @@
 from django.test import TestCase
-from rest_framework.test import APIRequestFactory
 
 from public.models import User
 
@@ -10,14 +9,9 @@ class UserTestCase(TestCase):
     password = 'wonderland'
 
     def setUp(self):
-        factory = APIRequestFactory()
-        request = factory.post('/users/', {
-            'username': self.username,
-            'password': self.password
-        })
-
-    def test_user_exists(self):
-        self.assertTrue(User.objects.filter(username=self.username).exists())
+        user = User(username=self.username)
+        user.set_password(self.password)
+        user.save()
 
     def test_password(self):
         """Check that the user's password has been hashed."""

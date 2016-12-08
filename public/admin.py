@@ -10,8 +10,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = (
         'first_name',
         'last_name',
-        'birth_date',
-        'join_date'
+        'date_joined'
     )
 
     ordering = (
@@ -30,7 +29,7 @@ class ItemAdmin(admin.ModelAdmin):
         'name',
         'little_description',
         'pub_date',
-        'pub_person',
+        'pub_user',
         'render_image'
     )
 

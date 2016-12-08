@@ -2,7 +2,8 @@
 
 ## Installation
 
-Il faut au préalable avoir installé Python 3. Pour cela [la distribution Anaconda](https://www.continuum.io/downloads) est recommandée. De plus il fortement conseillé d'utiliser un [environnement virtuel](http://conda.pydata.org/docs/using/envs.html).
+- Il faut au préalable avoir installé Python 3. Pour cela [la distribution Anaconda](https://www.continuum.io/downloads) est recommandée. De plus il fortement conseillé d'utiliser un [environnement virtuel](http://conda.pydata.org/docs/using/envs.html).
+- Il faut aussi installer et [PostgreSQL](https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/content/optional_postgresql_installation/) et [PostGIS](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/postgis/) qui est l'extension géographique de PostgreSQL.
 
 ```sh
 cd /chemin/vers/application/
@@ -23,3 +24,4 @@ Vous pouvez lancer `python manage.py` pour afficher une liste de commandes à di
 - `python manage.py migrate` pour effectuer les migrations en retard
 - `python manage.py createsuperuser` pour créer un utilisateur administrateur
 - `python manage.py generate_fake_data` pour remplir la base de données avec des données simulées (oui, vraiment!)
+- `python manage.py flush` pour vider la base de données.

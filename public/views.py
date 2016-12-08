@@ -4,7 +4,7 @@ from .models import (
     Item,
     User
 )
-
+from .permissions import IsStaffOrTargetUser
 from .serializers import (
     ItemSerializer,
     UserSerializer
@@ -21,7 +21,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    lookup_field = 'uuid'
 
-    permission_classes = [
-        permissions.AllowAny # Or else anon users can't register
-    ]
+    def get_permissions(self):
+        # Allow non-authenticated user to create via POST
+        return [permissions.AllowAny() if self.request.method == 'POST' else IsStaffOrTargetUser()]

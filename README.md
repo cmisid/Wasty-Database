@@ -23,5 +23,9 @@ Vous pouvez lancer `python manage.py` pour afficher une liste de commandes à di
 - `python manage.py makemigrations <app>` pour créer des fichiers de migration (`<app>` est par exemple `public`)
 - `python manage.py migrate` pour effectuer les migrations en retard
 - `python manage.py createsuperuser` pour créer un utilisateur administrateur
-- `python manage.py generate_fake_data` pour remplir la base de données avec des données simulées (oui, vraiment!)
-- `python manage.py flush` pour vider la base de données.
+- `python manage.py flush` pour vider la base de données
+
+De plus, des commandes spécifiques à cette application sont disponibles:
+
+- `python manage.py generate_fake_data` pour remplir la base de données avec des données simulées
+- `python manage.py import_static_data` pour insérer les données statiques tels que les informations sur les quartiers

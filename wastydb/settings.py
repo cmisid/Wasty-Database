@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'public.apps.PublicConfig',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,7 +129,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 
-MEDIA_ROOT = 'public/static/img/'
+MEDIA_ROOT = 'public/static/media/'
+MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
 

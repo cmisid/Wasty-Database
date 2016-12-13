@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.gis.db import models as geo
+from django.forms.widgets import Textarea
 
 from .models import Item
 from .models import User
@@ -29,13 +31,16 @@ class ItemAdmin(admin.ModelAdmin):
         'name',
         'little_description',
         'pub_date',
-        'pub_user',
-        'render_image'
+        'pub_user'
     )
 
     ordering = (
         'name',
     )
+
+    formfield_overrides = {
+        geo.PointField: {'widget': Textarea}
+    }
 
     search_fields = list_display
     ordering = ordering

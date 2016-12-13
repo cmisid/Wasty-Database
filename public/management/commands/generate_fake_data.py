@@ -1,8 +1,9 @@
 from autofixture import AutoFixture, generators
+from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from public.models import Item
-from public.models import Person
+from public.models import User
 
 import datetime as dt
 import random
@@ -52,7 +53,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # 1. Persons
-        AutoFixture(Person, field_values={
+        AutoFixture(User, field_values={
             'first_name': generators.FirstNameGenerator(),
             'last_name': generators.LastNameGenerator(),
             # We are a young company so just set join_date to 1-2 years
@@ -73,10 +74,7 @@ class Command(BaseCommand):
             'img': generators.ImageGenerator(
                 width=200,
                 height=200,
-                path=''
-            ),
-            'img_url': generators.MediaFilePathGenerator(
-                path=''
+                path=settings.MEDIA_URL[1:] + 'items/'
             )
         }
         ).create(80)

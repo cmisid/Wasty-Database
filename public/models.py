@@ -3,8 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.gis.db import models as geo
 from django.db import models
 
-import os
-
 
 class User(AbstractUser):
 
@@ -26,15 +24,10 @@ class Item(models.Model):
 
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=1024)
-    img = models.ImageField(upload_to='img', null=True)
-    img_url = models.CharField(max_length=200, null=True)
+    img = models.ImageField(upload_to='items', blank=True, null=True)
     pub_date = models.DateTimeField('Date published', auto_now_add=True)
     pub_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    location = geo.PointField(null=True)
-
-    def render_image(self):
-        return '<img src="{}" width="100px"/>'.format(os.path.join('localhost:8000/static/img', self.img_url))
-    render_image.allow_tags = True
+    location = geo.PointField(blank=True, null=True)
 
     def little_description(self):
         return self.description[:100]

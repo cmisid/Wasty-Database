@@ -1,4 +1,5 @@
 from django.test import TestCase
+from rest_framework import status
 from rest_framework.test import APIClient
 
 from public.models import User
@@ -16,8 +17,18 @@ class APIUserTestCase(TestCase):
             'email': self.email,
             'password': self.password
         }
-        client.post('/users/', payload, format='json')
+        response = client.post('/users/', payload, format='json')
 
+        # Check the response status code
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        # Check the user was correctly created directly in the database
         user = User.objects.get(email=self.email)
         self.assertNotEqual(user.password, self.password)
         self.assertTrue(user.check_password(self.password))
+
+        # Check the user was correctly created by doing an HTTP query
+        response = client.get('/users/').json()
+        self.assertEqual(len(response), 1)
+        self.assertEqual(response[0]['email'], self.email)
+        self.assertFalse('password' in response[0])

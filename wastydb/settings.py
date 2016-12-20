@@ -133,16 +133,3 @@ MEDIA_ROOT = 'public/static/media/'
 MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
-
-# Django REST Framework
-# http://www.django-rest-framework.org/
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-}

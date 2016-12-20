@@ -23,6 +23,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     lookup_field = 'email'
 
-    def get_permissions(self):
-        # Allow non-authenticated user to create via POST
-        return [permissions.AllowAny() if self.request.method == 'POST' else IsStaffOrTargetUser()]
+    #def get_permissions(self):
+    #   # Allow non-authenticated user to create via POST
+    #   return [permissions.AllowAny() if self.request.method == 'POST' else IsStaffOrTargetUser()]

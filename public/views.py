@@ -21,7 +21,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    lookup_field = 'uuid'
+    lookup_field = 'email'
 
     def get_permissions(self):
         # Allow non-authenticated user to create via POST

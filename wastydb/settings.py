@@ -11,6 +11,18 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 import os
 
+import environ
+
+# Set enrironment default values and casting
+ENV = environ.Env(
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, 'a_default_secret_key_is_not_safe'),
+    DATABASE_URL=(str, 'psql://postgres:postgres@127.0.0.1:5432/wasty')
+)
+
+# Load the .env file into the enviroment
+environ.Env.read_env('.env')
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,10 +31,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3qy8$j3798ccwflqx58p9h$eb()zd83%gag)(uk^$3g@l9%cdh'
+SECRET_KEY = ENV('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = ENV('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -81,12 +93,8 @@ WSGI_APPLICATION = 'wastydb.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'wasty',
-        'HOST': 'localhost',
-        'PORT': 5432
-    },
+    'default': ENV.db(), # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
+    'extra': ENV.db('DATABASE_URL')
 }
 
 
@@ -116,7 +124,7 @@ AUTH_USER_MODEL = 'public.User'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'CET' # Central European Time
 
 USE_I18N = True
 

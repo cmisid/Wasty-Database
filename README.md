@@ -11,11 +11,15 @@ pip install -r setup/requirements.txt
 pip install -r setup/dev-requirements.txt
 ```
 
-En plus de Django, les librairies externes utilisées sont
+Enfin il faut créer un fichier nommé `.env` pour configurer l'application selon votre installation. Ces variables sont personnelles et c'est pour cela qu'elles ne sont pas versionnées. Copiez/collez le code suivant et remplacez les valeurs selon vos besoins.
 
-- [django-autofixture](https://github.com/gregmuellegger/django-autofixture) pour la simulation de données factices.
-- [djangorestframework](http://www.django-rest-framework.org/) pour l'API REST.
+```sh
+DEBUG=on # Indique si le débogueur est allumé ou pas
+SECRET_KEY='3qy8$j3798ccwflqx58p9h$eb()zd83%gag)(uk^$3g@l9%cdh' # Clé secrète
+DATABASE_URL=psql://postgres:postgres@127.0.0.1:5432/wasty # URI pointant vers la base de données
+```
 
+## Développement
 
 Vous pouvez lancer `python manage.py` pour afficher une liste de commandes à dispositions. Les plus fréquentes d'utilisation sont:
 

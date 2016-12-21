@@ -1,0 +1,8 @@
+{
+  "name": "WastyDB",
+  "description": "Wasty database service",
+  "image": "heroku/python",
+  "repository": "https://github.com/cmisid/WastyDB",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ]
+}

@@ -16,7 +16,7 @@ Enfin il faut créer un fichier nommé `.env` pour configurer l'application selo
 ```sh
 DEBUG=on # Indique si le débogueur est allumé ou pas
 SECRET_KEY='3qy8$j3798ccwflqx58p9h$eb()zd83%gag)(uk^$3g@l9%cdh' # Clé secrète
-DATABASE_URL=psql://postgres:postgres@127.0.0.1:5432/wasty # URI pointant vers la base de données
+DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/wasty # URI pointant vers la base de données
 ```
 
 ## Développement

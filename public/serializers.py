@@ -42,3 +42,11 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
+        fields = (
+            'name',
+            'description',
+            'img',
+            'pub_date',
+            'pub_user',
+            'location'
+        )

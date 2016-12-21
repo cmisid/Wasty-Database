@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 import os
 
+import dj_database_url
 import environ
 
 # Set enrironment default values and casting
@@ -92,10 +93,9 @@ WSGI_APPLICATION = 'wastydb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': ENV.db(), # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'extra': ENV.db('DATABASE_URL')
-}
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config()
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 
 # Password validation

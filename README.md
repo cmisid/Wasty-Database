@@ -1,9 +1,25 @@
+<div>
+  <div align="center">
+    <img src="https://docs.google.com/drawings/d/1CgBwaB4JOsYyUhqR1e9pPE5AdyEgIksgAIh_EIVtfsg/pub?w=476&h=230" alt="logo"/>
+  </div>
+  <br/>
+  <div align="center">
+    <a href="https://travis-ci.org/cmisid/WastyDB">
+      <img src="https://travis-ci.org/cmisid/WastyDB.svg?branch=master&style=flat-square" alt="Build Status"/>
+    </a>
+    <a href="https://coveralls.io/github/MaxHalford/Prince?branch=master">
+      <img src="https://coveralls.io/repos/github/MaxHalford/Prince/badge.svg?branch=master&style=flat-square" alt="Coverage Status"/>
+    </a>
+  </div>
+<div>
+
 # Wasty database service
 
 ## Installation
 
 - Il faut au préalable avoir installé Python 3 (de préférence la version 3.5.2). Pour cela [la distribution Anaconda](https://www.continuum.io/downloads) est recommandée. De plus il fortement conseillé d'utiliser un [environnement virtuel](http://conda.pydata.org/docs/using/envs.html).
-- Il faut aussi installer et [PostgreSQL](https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/content/optional_postgresql_installation/) et [PostGIS](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/postgis/) qui est l'extension géographique de PostgreSQL.
+- Il faut aussi installer [PostgreSQL](https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/content/optional_postgresql_installation/) (version 9.x) et [PostGIS](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/postgis/) qui est l'extension géographique de PostgreSQL. Pour MacOS il fortement conseillé d'utiliser [Postgres.app](http://postgresapp.com/) qui rend l'installation triviale.
+- Après avoir installé PostgreSQL, il faut créer une base de données qui doit s'appeller `wasty`.
 
 ```sh
 cd /chemin/vers/application/

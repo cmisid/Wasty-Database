@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 import os
-import warnings
 
 import dj_database_url
 import environ
@@ -23,10 +22,7 @@ ENV = environ.Env(
 )
 
 # Load the .env file into the enviroment
-try:
-    environ.Env.read_env('.env')
-except UserWarning:
-    warnings.warn("You haven't added a .env file; default configuration values will be used")
+environ.Env.read_env('.env')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

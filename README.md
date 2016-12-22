@@ -2,13 +2,12 @@
   <div align="center">
     <img src="https://docs.google.com/drawings/d/1CgBwaB4JOsYyUhqR1e9pPE5AdyEgIksgAIh_EIVtfsg/pub?w=476&h=230" alt="logo"/>
   </div>
-  <br/>
   <div align="center">
     <a href="https://travis-ci.org/cmisid/WastyDB">
       <img src="https://travis-ci.org/cmisid/WastyDB.svg?branch=master&style=flat-square" alt="Build Status"/>
     </a>
-    <a href="https://coveralls.io/github/MaxHalford/Prince?branch=master">
-      <img src="https://coveralls.io/repos/github/MaxHalford/Prince/badge.svg?branch=master&style=flat-square" alt="Coverage Status"/>
+    <a href="https://coveralls.io/github/cmisid/WastyDB?branch=master">
+      <img src="https://coveralls.io/repos/github/cmisid/WastyDB/badge.svg?branch=master&style=flat-square" alt="Coverage Status"/>
     </a>
   </div>
 <div>

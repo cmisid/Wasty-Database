@@ -9,6 +9,9 @@
     <a href="https://coveralls.io/github/cmisid/WastyDB?branch=master">
       <img src="https://coveralls.io/repos/github/cmisid/WastyDB/badge.svg?branch=master&style=flat-square" alt="Coverage Status"/>
     </a>
+    <a href="https://www.codacy.com/app/maxhalford25/WastyDB?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cmisid/WastyDB&amp;utm_campaign=Badge_Grade">
+      <img src="https://api.codacy.com/project/badge/Grade/683ac797e09b44d58468846571979d74" alt="Codacy Badge" />
+    </a>
   </div>
 <div>
 

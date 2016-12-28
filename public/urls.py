@@ -1,14 +1,16 @@
 from django.conf.urls import include, url
 from rest_framework import routers
 
-from . import views
+from .views import ping
+from .views import rest
 
 
 router = routers.DefaultRouter()
 
-router.register(r'items', views.ItemViewSet)
-router.register(r'users', views.UserViewSet)
+router.register(r'items', rest.ItemViewSet)
+router.register(r'users', rest.UserViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^', ping)
 ]

@@ -29,7 +29,6 @@ class ItemAdmin(admin.ModelAdmin):
 
     list_display = (
         'name',
-        'little_description',
         'pub_date',
         'pub_user'
     )

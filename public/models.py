@@ -10,12 +10,14 @@ from .managers import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
 
+    date_joined = models.DateTimeField('Date joined', auto_now_add=True)
     email = models.EmailField('Email address', unique=True)
     first_name = models.CharField('First name', max_length=64, blank=True)
-    last_name = models.CharField('Last name', max_length=64, blank=True)
-    date_joined = models.DateTimeField('Date joined', auto_now_add=True)
+    img = models.ImageField(upload_to='users', blank=True, null=True)
     is_active = models.BooleanField('Active', default=True)
     is_staff = models.BooleanField('Staff', default=False)
+    last_name = models.CharField('Last name', max_length=64, blank=True)
+    oauth_id = models.CharField('OAuth id', max_length=128)
 
     objects = UserManager()
 
@@ -54,9 +56,6 @@ class Item(models.Model):
         db_table = 't_items'
         verbose_name_plural = 'Items'
         ordering = ('pub_date',)
-
-    def little_description(self):
-        return self.description[:100]
 
     def __str__(self):
         return self.name

@@ -1,11 +1,11 @@
 from rest_framework import permissions, viewsets
 
-from .models import (
+from public.models import (
     Item,
     User
 )
-from .permissions import IsStaffOrTargetUser
-from .serializers import (
+from public.permissions import IsStaffOrTargetUser
+from public.serializers import (
     ItemSerializer,
     UserSerializer
 )

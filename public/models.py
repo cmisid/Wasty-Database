@@ -7,9 +7,9 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.gis.db import models as geo
 from django.core.files.base import ContentFile
 from django.core.mail import send_mail
-from PIL import Image
 
 from .managers import UserManager
+from .util import create_image_placeholder
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -36,11 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         if self.img:
-            placeholder = Image.open(self.img)
-            (width, height) = placeholder.size
-            size = (width // 25, height // 25)
-            placeholder.resize(size, Image.ANTIALIAS)
-
+            placeholder = create_image_placeholder(self.img)
             placeholder_io = BytesIO()
             placeholder.save(placeholder_io, format='JPEG')
 
@@ -83,14 +79,9 @@ class Item(models.Model):
 
     def save(self, *args, **kwargs):
         if self.img:
-            placeholder = Image.open(self.img)
-            (width, height) = placeholder.size
-            size = (width // 25, height // 25)
-            placeholder.resize(size, Image.ANTIALIAS)
-
+            placeholder = create_image_placeholder(self.img)
             placeholder_io = BytesIO()
             placeholder.save(placeholder_io, format='JPEG')
-
             self.img_placeholder.save(
                 '.'.join(str(self.img).split('/')[-1].split('.')[:-1]) + '_placeholder.jpg',
                 content=ContentFile(placeholder_io.getvalue()),

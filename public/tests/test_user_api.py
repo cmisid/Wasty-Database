@@ -1,5 +1,3 @@
-import datetime as dt
-
 from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIClient
@@ -9,7 +7,6 @@ from public.models import User
 
 class APIUserTestCase(TestCase):
 
-    date_joined = dt.datetime.now()
     email = 'alice@carol.com'
     first_name = 'Alice'
     last_name = 'Kinsley'
@@ -20,7 +17,6 @@ class APIUserTestCase(TestCase):
         """Check that the user can register through the API."""
         client = APIClient()
         payload = {
-            'date_joined': self.date_joined,
             'email': self.email,
             'first_name': self.first_name,
             'last_name': self.last_name,

@@ -1,9 +1,13 @@
+from io import BytesIO
+
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.gis.db import models as geo
+from django.core.files.base import ContentFile
 from django.core.mail import send_mail
+from PIL import Image
 
 from .managers import UserManager
 
@@ -14,10 +18,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('Email address', unique=True)
     first_name = models.CharField('First name', max_length=64, blank=True)
     img = models.ImageField(upload_to='users', blank=True, null=True)
+    img_placeholder = models.ImageField(upload_to='users', blank=True, null=True)
     is_active = models.BooleanField('Active', default=True)
     is_staff = models.BooleanField('Staff', default=False)
     last_name = models.CharField('Last name', max_length=64, blank=True)
-    oauth_id = models.CharField('OAuth id', max_length=128)
+    oauth_id = models.CharField('OAuth id', max_length=128, unique=True)
 
     objects = UserManager()
 
@@ -28,6 +33,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = 't_users'
         verbose_name_plural = 'Users'
         ordering = ('date_joined',)
+
+    def save(self, *args, **kwargs):
+        if self.img:
+            placeholder = Image.open(self.img)
+            (width, height) = placeholder.size
+            size = (width // 25, height // 25)
+            placeholder.resize(size, Image.ANTIALIAS)
+
+            placeholder_io = BytesIO()
+            placeholder.save(placeholder_io, format='JPEG')
+
+            self.img_placeholder.save(
+                '.'.join(str(self.img).split('/')[-1].split('.')[:-1]) + '_placeholder.jpg',
+                content=ContentFile(placeholder_io.getvalue()),
+                save=False
+            )
+
+        super(User, self).save(*args, **kwargs)
 
     def get_full_name(self):
         """Returns the first_name plus the last_name, with a space in between."""
@@ -48,6 +71,7 @@ class Item(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=1024)
     img = models.ImageField(upload_to='items', blank=True, null=True)
+    img_placeholder = models.ImageField(upload_to='items', blank=True, null=True)
     pub_date = models.DateTimeField('Date published', auto_now_add=True)
     pub_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     location = geo.PointField(blank=True, null=True)
@@ -56,6 +80,24 @@ class Item(models.Model):
         db_table = 't_items'
         verbose_name_plural = 'Items'
         ordering = ('pub_date',)
+
+    def save(self, *args, **kwargs):
+        if self.img:
+            placeholder = Image.open(self.img)
+            (width, height) = placeholder.size
+            size = (width // 25, height // 25)
+            placeholder.resize(size, Image.ANTIALIAS)
+
+            placeholder_io = BytesIO()
+            placeholder.save(placeholder_io, format='JPEG')
+
+            self.img_placeholder.save(
+                '.'.join(str(self.img).split('/')[-1].split('.')[:-1]) + '_placeholder.jpg',
+                content=ContentFile(placeholder_io.getvalue()),
+                save=False
+            )
+
+        super(Item, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

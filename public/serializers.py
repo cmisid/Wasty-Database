@@ -16,19 +16,25 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'first_name',
             'img',
+            'img_placeholder',
             'last_name',
             'oauth_id',
             'password'
         )
-        write_only_fields = ('password',)
-        read_only_fields = ('is_staff', 'is_superuser', 'is_active', 'date_joined')
+        read_only_fields = (
+            'date_joined',
+            'img_placeholder',
+            'is_active',
+            'is_staff',
+            'is_superuser',
+        )
 
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
         user_model = get_user_model()
-        password = validated_data.pop('password')
         user = user_model.objects.create(**validated_data)
+        password = validated_data.pop('password')
         user.set_password(password)
         user.save()
         return user
@@ -48,10 +54,14 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = (
-            'name',
             'description',
             'img',
+            'img_placeholder',
+            'name',
+            'location',
             'pub_date',
-            'pub_user',
-            'location'
+            'pub_user'
+        )
+        read_only_fields = (
+            'img_placeholder',
         )

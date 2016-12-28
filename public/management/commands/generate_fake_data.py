@@ -1,12 +1,11 @@
+import datetime as dt
+import random
+
 from autofixture import AutoFixture, generators
-from django.conf import settings
 from django.core.management.base import BaseCommand
 
 from public.models import Item
 from public.models import User
-
-import datetime as dt
-import random
 
 
 class ItemNameGenerator(generators.Generator):
@@ -52,29 +51,28 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        # 1. Persons
+
+        # 1. Users
         AutoFixture(User, field_values={
-            'first_name': generators.FirstNameGenerator(),
-            'last_name': generators.LastNameGenerator(),
-            # We are a young company so just set join_date to 1-2 years
-            'join_date': generators.DateGenerator(
-                min_date=dt.date.today() - dt.timedelta(365 * 2),
-                max_date=dt.date.today() - dt.timedelta(365 * 1)
-            ),
             # Generates random birth dates between 7-77 yo
             'birth_date': generators.DateGenerator(
                 min_date=dt.date.today() - dt.timedelta(365 * 77),
                 max_date=dt.date.today() - dt.timedelta(365 * 7)
-            )}
-        ).create(10)
+            ),
+            # We are a young company so just set join_date to 1-2 years
+            'date_joined': generators.DateGenerator(
+                min_date=dt.date.today() - dt.timedelta(365 * 2),
+                max_date=dt.date.today() - dt.timedelta(365 * 1)
+            ),
+            'email': generators.EmailGenerator(),
+            'first_name': generators.FirstNameGenerator(),
+            'img': generators.ImageGenerator(height=200, width=200, path='users/'),
+            'last_name': generators.LastNameGenerator(),
+            'oauth_id': generators.PositiveIntegerGenerator()
+        }).create(10)
 
         # 2. Items
         AutoFixture(Item, field_values={
             'name': ItemNameGenerator(),
-            'img': generators.ImageGenerator(
-                width=200,
-                height=200,
-                path=settings.MEDIA_URL[1:] + 'items/'
-            )
-        }
-        ).create(80)
+            'img': generators.ImageGenerator(height=200, width=200, path='items/')
+        }).create(80)

@@ -12,5 +12,5 @@ router.register(r'users', rest.UserViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^', base.ping)
+    url(r'^ping', base.ping)
 ]

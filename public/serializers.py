@@ -16,9 +16,9 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'first_name',
             'img',
-            'last_name'
+            'last_name',
             'oauth_id',
-            'password',
+            'password'
         )
         write_only_fields = ('password',)
         read_only_fields = ('is_staff', 'is_superuser', 'is_active', 'date_joined')

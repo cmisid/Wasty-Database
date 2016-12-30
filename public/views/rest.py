@@ -4,6 +4,7 @@ from public.models import (
     Item,
     User
 )
+from public.paginations import ItemViewSetPagination
 from public.permissions import IsStaffOrTargetUser
 from public.serializers import (
     ItemSerializer,
@@ -15,6 +16,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    pagination_class = ItemViewSetPagination
 
 
 class UserViewSet(viewsets.ModelViewSet):

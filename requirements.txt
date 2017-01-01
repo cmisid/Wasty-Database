@@ -1,8 +1,7 @@
 DateTime==4.1.1
-dj-database-url==0.4.1
 Django==1.10.4
 django-autofixture==0.12.1
-Django-environ==0.4.1
+django-dotenv==1.4.1
 django-jet==1.0.4
 djangorestframework==3.5.3
 Pillow==3.4.2

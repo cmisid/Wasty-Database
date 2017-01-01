@@ -2,8 +2,22 @@
 import os
 import sys
 
+import dotenv
+
+
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wastydb.settings")
+
+    dotenv.read_dotenv()
+
+    os.environ.setdefault('DB_NAME', 'wasty')
+    os.environ.setdefault('DB_USER', 'postgres')
+    os.environ.setdefault('DB_PASSWORD', 'postgres')
+    os.environ.setdefault('DB_HOST', '127.0.0.1')
+    os.environ.setdefault('DB_PORT', '5432')
+    os.environ.setdefault('DEBUG', 'False')
+    os.environ.setdefault('SECRET_KEY', 'a_default_secret_key_is_not_safe')
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wastydb.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError:

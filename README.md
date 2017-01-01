@@ -33,9 +33,18 @@ pip install -r setup/dev-requirements.txt
 - Il faut créer un fichier nommé `.env` pour configurer l'application selon votre installation. Ces variables sont personnelles et c'est pour cela qu'elles ne sont pas versionnées. Copiez/collez le code suivant et remplacez les valeurs selon vos besoins.
 
 ```sh
-DEBUG=on # Indique si le débogueur est allumé ou pas
-SECRET_KEY='3qy8$j3798ccwflqx58p9h$eb()zd83%gag)(uk^$3g@l9%cdh' # Clé secrète
-DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/wasty # URI pointant vers la base de données
+# Paramètres de l'URI pointant vers la base de données
+DB_NAME='wasty'
+DB_USER='postgres'
+DB_PASSWORD='postgres'
+DB_HOST='127.0.0.1'
+DB_PORT='5432'
+
+# Indique si le débogueur est allumé ou pas
+DEBUG='True'
+
+# Clé secrète
+SECRET_KEY='3qy8$j3798ccwflqx58p9h$eb()zd83%gag)(uk^$3g@l9%cdh'
 ```
 
 - Vous pouvez maintenant insérer les tables dans la base de données en faisant `python manage.py migrate`. Cette commande va regarder tous les fichiers résidants dans les dossier `migrations/` et les appliquer à la suite.

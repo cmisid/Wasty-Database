@@ -6,7 +6,7 @@ branches:
 
 os:
   - linux
-  - windows
+  - osx
 
 language: python
 

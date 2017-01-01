@@ -4,6 +4,10 @@ branches:
   only:
     - master
 
+os:
+  - linux
+  - windows
+
 language: python
 
 python:

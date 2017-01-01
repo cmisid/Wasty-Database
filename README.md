@@ -19,7 +19,7 @@
 
 ## Installation
 
-- Il faut au préalable avoir installé Python 3 (de préférence la version 3.5.2). Pour cela [la distribution Anaconda](https://www.continuum.io/downloads) est recommandée. De plus il fortement conseillé d'utiliser un [environnement virtuel](http://conda.pydata.org/docs/using/envs.html).
+- Il faut au préalable avoir installé Python 3 (de préférence la version 3.5.2). Pour cela [la distribution Anaconda](https://www.continuum.io/downloads) est recommandée. De plus il fortement conseillé d'utiliser un [environnement virtuel](http://conda.pydata.org/docs/using/envs.html), que ce soit avec Anaconda ou pas.
 - Il faut aussi installer [PostgreSQL](https://djangogirls.gitbooks.io/django-girls-tutorial-extensions/content/optional_postgresql_installation/) (version 9.x) et [PostGIS](https://docs.djangoproject.com/en/1.7/ref/contrib/gis/install/postgis/) qui est l'extension géographique de PostgreSQL. Pour MacOS il fortement conseillé d'utiliser [Postgres.app](http://postgresapp.com/) qui rend l'installation triviale.
 - Après avoir installé PostgreSQL, il faut créer une base de données qui doit s'appeller `wasty`. Vous pouvez le faire à la main ou bien en utilisant une interface visuelle comme [pgAdmin](https://www.pgadmin.org/) ou bien [Postico](https://eggerapps.at/postico/).
 - Ensuite il faut installer les librairies Python utilisées dans l'application. Pour cela effectuez les commandes suivantes.
@@ -34,6 +34,7 @@ pip install -r setup/dev-requirements.txt
 
 ```sh
 # Paramètres de l'URI pointant vers la base de données
+DB_ENGINE='django.contrib.gis.db.backends.postgis'
 DB_NAME='wasty'
 DB_USER='postgres'
 DB_PASSWORD='postgres'

@@ -9,6 +9,7 @@ if __name__ == "__main__":
 
     dotenv.read_dotenv()
 
+    os.environ.setdefault('DB_ENGINE', 'django.contrib.gis.db.backends.postgis')
     os.environ.setdefault('DB_NAME', 'wasty')
     os.environ.setdefault('DB_USER', 'postgres')
     os.environ.setdefault('DB_PASSWORD', 'postgres')

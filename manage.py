@@ -10,11 +10,11 @@ if __name__ == "__main__":
     dotenv.read_dotenv()
 
     os.environ.setdefault('DB_ENGINE', 'django.contrib.gis.db.backends.postgis')
-    os.environ.setdefault('DB_NAME', 'wasty')
+    os.environ.setdefault('DB_NAME', 'WastyDB')
     os.environ.setdefault('DB_USER', 'postgres')
     os.environ.setdefault('DB_PASSWORD', 'postgres')
-    os.environ.setdefault('DB_HOST', '127.0.0.1')
-    os.environ.setdefault('DB_PORT', '5432')
+    os.environ.setdefault('DB_HOST', '141.115.103.5')
+    os.environ.setdefault('DB_PORT', '8000')
     os.environ.setdefault('DEBUG', 'False')
     os.environ.setdefault('SECRET_KEY', 'a_default_secret_key_is_not_safe')
 

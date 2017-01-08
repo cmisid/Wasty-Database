@@ -2,8 +2,11 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from .models import (
-    Item,
-    User
+    Advert,
+    User,
+    Category,
+    SubCategory,
+    Recovery
 )
 
 
@@ -14,19 +17,25 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             'date_joined',
             'email',
-            'first_name',
-            'img',
-            'img_placeholder',
             'last_name',
-            'oauth_id',
-            'password'
+            'first_name',
+            'user_img',
+            'user_img_placeholder',
+            'password',
+            'gender',
+            'date_birth',
+            'social_professional_category',
+            'phone_number',
+            'home_address',
+            'user_permission',
         )
         read_only_fields = (
             'date_joined',
-            'img_placeholder',
-            'is_active',
-            'is_staff',
-            'is_superuser',
+            'date_unsubscribe'
+            'user_img_placeholder',
+            'user_permission',
+            'last_login',
+            'user_location',
         )
 
     password = serializers.CharField(write_only=True)
@@ -49,19 +58,77 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
 
 
-class ItemSerializer(serializers.ModelSerializer):
+class AdvertSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Item
+        model = Advert
         fields = (
+            'title',
+            'advert_date',
+            'advert_state',
+            'situation',
+            'price',
+            'type_place',
             'description',
-            'img',
-            'img_placeholder',
-            'name',
-            'location',
-            'pub_date',
-            'pub_user'
+            'advert_img',
+            'advert_img',
+            'advert_img',
+            'advert_img_placeholder',
+            'object_state',
+            'volume',
+            'weight',
+            'quantity',
+            'forecast_time',
+            'forecast_price',
+            'buy_place',
+            'advert_user',
+            'advert_address',
+            'sub_category',
+
         )
         read_only_fields = (
-            'img_placeholder',
+            'advert_date',
+            'forecast_time',
+            'forecast_price',
+            'advert_user',
+            'advert_address',
+            'sub_category',
+
+        )
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = (
+            'category_name',
+        )
+
+
+class SubCategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SubCategory
+        fields = (
+            'sub_category_name',
+            'category',
+
+        )
+        read_only_fields = (
+            'catagory',
+        )
+
+
+class RecoverySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Recovery
+        fields = (
+            'recovery_datetime',
+            'recovery_user',
+            'advert',
+        )
+        read_only_fields = (
+            'recovery_datetime',
         )

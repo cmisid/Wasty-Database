@@ -1,30 +1,58 @@
-# from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets
 
-# from public.models import (
-#     Item,
-#     User
-# )
-# from public.paginations import ItemViewSetPagination
-# from public.permissions import IsStaffOrTargetUser
-# from public.serializers import (
-#     ItemSerializer,
-#     UserSerializer
-# )
+from public.models import (
+	Advert,
+	User,
+	Category,
+	SubCategory,
+	Recovery
+)
+
+from public.paginations import AdvertViewSetPagination
+from public.permissions import IsStaffOrTargetUser
+from public.serializers import (
+	AdvertSerializer,
+	UserSerializer,
+	CategorySerializer,
+	SubCategorySerializer,
+	RecoverySerializer
+)
 
 
-# class ItemViewSet(viewsets.ModelViewSet):
+class AdvertViewSet(viewsets.ModelViewSet):
 
-#     queryset = Item.objects.all()
-#     serializer_class = ItemSerializer
-#     pagination_class = ItemViewSetPagination
+	queryset = Advert.objects.all()
+	serializer_class = AdvertSerializer
+	pagination_class = AdvertViewSetPagination
 
 
-# class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
 
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-#     lookup_field = 'email'
+	queryset = User.objects.all()
+	serializer_class = UserSerializer
+	lookup_field = 'email'
 
-    #def get_permissions(self):
-    #   # Allow non-authenticated user to create via POST
-    #   return [permissions.AllowAny() if self.request.method == 'POST' else IsStaffOrTargetUser()]
+
+class CategoryViewSet(viewsets.ModelViewSet):
+
+	queryset = Category.objects.all()
+	serializer_class = CategorySerializer
+	pagination_class = AdvertViewSetPagination
+
+
+class SubCategoryViewSet(viewsets.ModelViewSet):
+
+	queryset = SubCategory.objects.all()
+	serializer_class = SubCategorySerializer
+	pagination_class = AdvertViewSetPagination
+
+
+class RecoveryViewSet(viewsets.ModelViewSet):
+
+	queryset = Recovery.objects.all()
+	serializer_class = RecoverySerializer
+	pagination_class = AdvertViewSetPagination
+
+	#def get_permissions(self):
+	#	# Allow non-authenticated user to create via POST
+    #   	return [permissions.AllowAny() if self.request.method == 'POST' else IsStaffOrTargetUser()]

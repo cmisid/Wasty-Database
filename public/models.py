@@ -150,10 +150,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender = models.CharField(max_length=1, choices=GENDER, blank=True,
                               null=True)
     date_birth = models.DateTimeField('Date birth', blank=True, null=True)
-    socio_professional_category = models.CharField(max_length=2, choices=CSP,
+    social_professional_category = models.CharField(max_length=2, choices=CSP,
                                                    blank=True, null=True)
     phone_number = models.IntegerField(blank=True, null=True)
-    home_adress = models.ForeignKey(Address, on_delete=models.CASCADE,
+    home_address = models.ForeignKey(Address, on_delete=models.CASCADE,
                                     blank=True, null=True)
 
     objects = UserManager()
@@ -439,6 +439,7 @@ class Recovery(models.Model):
 
     class Meta:
         db_table = 't_recoveries'
+        ordering = ('advert_date',)
 
 
 class Like(models.Model):

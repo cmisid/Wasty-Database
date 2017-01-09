@@ -12,6 +12,14 @@ router.register(r'^users', rest.UserViewSet)
 router.register(r'^categories', rest.CategoryViewSet)
 router.register(r'^subcategories', rest.SubCategoryViewSet)
 router.register(r'^recoveries', rest.RecoveryViewSet)
+router.register(r'^interestfor', rest.InterestForViewSet)
+router.register(r'^centersofinterest', rest.CenterOfInterestViewSet)
+router.register(r'^cities', rest.CityViewSet)
+router.register(r'^districts', rest.DistrictViewSet)
+router.register(r'^addresses', rest.AddressViewSet)
+router.register(r'^visits', rest.VisitViewSet)
+router.register(r'^likes', rest.LikeViewSet)
+
 
 urlpatterns = [
     url(r'^', include(router.urls)),

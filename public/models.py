@@ -87,11 +87,11 @@ class District(models.Model):
         ('60', 'SEPT DENIERS'),
     )
 
-    district_name = models.CharField('name district', max_length=1,
+    district_name = models.CharField('name district', max_length=2,
                                      choices=DISTRICT_NAME)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     density = models.IntegerField(blank=True, null=True)
-    polygon = geo.PolygonField()
+    polygon = geo.PolygonField(blank=True, null=True)
 
     class Meta:
         db_table = 't_districts'

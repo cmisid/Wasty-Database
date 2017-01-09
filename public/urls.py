@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 from rest_framework import routers
 
 from .views import base
+from .views import custom
 from .views import rest
 
 
@@ -24,5 +25,7 @@ router.register(r'^pickuppoints', rest.PickUpPointViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^ping', base.ping)
+    url(r'^ping', base.ping),
+    url(r'^get-user/(?P<user_id>[0-9]+)/$', custom.get_user, name='get_user'),
+    url(r'^post-advert', custom.post_advert, name='post_advert')
 ]

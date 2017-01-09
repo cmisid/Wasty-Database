@@ -344,7 +344,7 @@ class SubCategory(models.Model):
         ('95', 'ski'),
         ('96', 'snowboard'),
     )
-    sub_category_name = models.CharField('Sub-category name', max_length=1,
+    sub_category_name = models.CharField('Sub-category name', max_length=2,
                                          choices=SUB_CATEGORY)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 

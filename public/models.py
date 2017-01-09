@@ -106,7 +106,7 @@ class Address(models.Model):
     complement = models.CharField('Complement address', max_length=128,
                                   null=True)
     address_city = models.ForeignKey(City, on_delete=models.CASCADE)
-    district = models.ForeignKey(District, on_delete=models.CASCADE)
+    district = models.ForeignKey(District, on_delete=models.CASCADE, blank=True, null=True)
     location = geo.PointField(blank=False, null=False)
 
     class Meta:
@@ -158,7 +158,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_birth = models.DateField('Date birth', blank=True, null=True)
     social_professional_category = models.CharField(max_length=2, choices=CSP,
                                                    blank=True, null=True)
-    phone_number = models.IntegerField(blank=True, null=True)
+    phone_number = models.CharField(max_length=10, blank=True, null=True)
     home_address = models.ForeignKey(Address, on_delete=models.CASCADE,
                                     blank=True, null=True)
     car_size = models.CharField('car size', max_length=1, choices=SIZE, blank=True)

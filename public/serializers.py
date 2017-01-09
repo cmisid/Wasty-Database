@@ -6,7 +6,16 @@ from .models import (
     User,
     Category,
     SubCategory,
-    Recovery
+    Recovery,
+    InterestFor,
+    CenterOfInterest,
+    City,
+    District,
+    Address,
+    Visit,
+    Like,
+    PickUpPoint
+
 )
 
 
@@ -28,6 +37,8 @@ class UserSerializer(serializers.ModelSerializer):
             'phone_number',
             'home_address',
             'user_permission',
+            'last_login',
+            'car_size',
         )
         read_only_fields = (
             'date_joined',
@@ -71,29 +82,25 @@ class AdvertSerializer(serializers.ModelSerializer):
             'type_place',
             'description',
             'advert_img',
-            'advert_img',
-            'advert_img',
             'advert_img_placeholder',
             'object_state',
             'volume',
             'weight',
             'quantity',
-            'forecast_time',
-            'forecast_price',
             'buy_place',
             'advert_user',
             'advert_address',
             'sub_category',
+            'constraint_time_begin',
+            'constraint_time_end',
 
         )
         read_only_fields = (
             'advert_date',
             'forecast_time',
             'forecast_price',
-            'advert_user',
+            'advert_img_placeholder',
             'advert_address',
-            'sub_category',
-
         )
 
 
@@ -131,4 +138,87 @@ class RecoverySerializer(serializers.ModelSerializer):
         )
         read_only_fields = (
             'recovery_datetime',
+        )
+
+
+class InterestForSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InterestFor
+        fields = (
+            'user',
+            'center_of_interest',
+        )
+
+
+class CenterOfInterestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CenterOfInterest
+        fields = (
+            'name_center_of_interest',
+        )
+
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = (
+            'city_name',
+        )
+
+class DistrictSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
+        fields = (
+            'pickup_point_address',
+            'recovery_type',
+        )
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = (
+            'street_number',
+            'street_name',
+            'postal_code',
+            'district',
+            'address_city',
+            'complement',
+            'location',
+        )
+        read_only_fields = (
+            'address_city',
+            'location',
+        )
+
+class VisitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Visit
+        fields = (
+            'advert_visit',
+            'user_visit',
+            'visit_datetime'
+        )
+        read_only_fields = (
+            'visit_datetime',
+        )
+
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = (
+            'advert_like',
+            'user_like',
+            'like_datetime'
+        )
+        read_only_fields = (
+            'like_datetime',
+        )
+
+
+class PickUpPointSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PickUpPoint
+        fields = (
+            'pickup_point_address',
+            'recovery_type',
         )

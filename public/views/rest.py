@@ -5,7 +5,15 @@ from public.models import (
 	User,
 	Category,
 	SubCategory,
-	Recovery
+	Recovery,
+	InterestFor,
+	CenterOfInterest,
+	City,
+	District,
+	Address,
+	Visit,
+	Like,
+	PickUpPoint
 )
 
 from public.paginations import AdvertViewSetPagination
@@ -15,7 +23,15 @@ from public.serializers import (
 	UserSerializer,
 	CategorySerializer,
 	SubCategorySerializer,
-	RecoverySerializer
+	RecoverySerializer,
+	InterestForSerializer,
+	CenterOfInterestSerializer,
+	CitySerializer,
+	DistrictSerializer,
+	AddressSerializer,
+	VisitSerializer,
+	LikeSerializer,
+	PickUpPointSerializer
 )
 
 
@@ -52,6 +68,55 @@ class RecoveryViewSet(viewsets.ModelViewSet):
 	queryset = Recovery.objects.all()
 	serializer_class = RecoverySerializer
 	pagination_class = AdvertViewSetPagination
+
+
+class InterestForViewSet(viewsets.ModelViewSet):
+
+	queryset = InterestFor.objects.all()
+	serializer_class = InterestForSerializer
+
+
+class CenterOfInterestViewSet(viewsets.ModelViewSet):
+
+	queryset = CenterOfInterest.objects.all()
+	serializer_class = CenterOfInterestSerializer
+
+
+class DistrictViewSet(viewsets.ModelViewSet):
+
+	queryset = District.objects.all()
+	serializer_class = DistrictSerializer
+
+
+class CityViewSet(viewsets.ModelViewSet):
+
+	queryset = City.objects.all()
+	serializer_class = CitySerializer
+
+
+class VisitViewSet(viewsets.ModelViewSet):
+
+	queryset = Visit.objects.all()
+	serializer_class = VisitSerializer
+
+
+class AddressViewSet(viewsets.ModelViewSet):
+
+	queryset = Address.objects.all()
+	serializer_class = AddressSerializer
+
+
+class LikeViewSet(viewsets.ModelViewSet):
+
+	queryset = Like.objects.all()
+	serializer_class = LikeSerializer
+
+
+class PickUpPointViewSet(viewsets.ModelViewSet):
+
+	queryset = PickUpPoint.objects.all()
+	serializer_class = PickUpPointSerializer
+
 
 	#def get_permissions(self):
 	#	# Allow non-authenticated user to create via POST

@@ -19,6 +19,7 @@ router.register(r'^districts', rest.DistrictViewSet)
 router.register(r'^addresses', rest.AddressViewSet)
 router.register(r'^visits', rest.VisitViewSet)
 router.register(r'^likes', rest.LikeViewSet)
+router.register(r'^pickuppoints', rest.PickUpPointViewSet)
 
 
 urlpatterns = [

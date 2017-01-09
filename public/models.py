@@ -134,6 +134,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('10', 'autres'),
     )
 
+    SIZE = (
+        ('1', 'petite voiture'),
+        ('2', 'moyenne voiture'),
+        ('3', 'grande voiture'),
+    )
+
     date_joined = models.DateTimeField('Date joined', auto_now_add=True)
     email = models.EmailField('Email address', unique=True)
     first_name = models.CharField('First name', max_length=64, blank=True)
@@ -149,12 +155,13 @@ class User(AbstractBaseUser, PermissionsMixin):
                                             null=True)
     gender = models.CharField(max_length=1, choices=GENDER, blank=True,
                               null=True)
-    date_birth = models.DateTimeField('Date birth', blank=True, null=True)
+    date_birth = models.DateField('Date birth', blank=True, null=True)
     social_professional_category = models.CharField(max_length=2, choices=CSP,
                                                    blank=True, null=True)
     phone_number = models.IntegerField(blank=True, null=True)
     home_address = models.ForeignKey(Address, on_delete=models.CASCADE,
                                     blank=True, null=True)
+    car_size = models.CharField('car size', max_length=1, choices=SIZE, blank=True)
 
     objects = UserManager()
 
@@ -197,7 +204,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
 
-class PickupPoint(models.Model):
+class PickUpPoint(models.Model):
     """Définition de la classe points de collectes, qui référence les
     différents points de collectes."""
     RECOVERY_TYPE = (
@@ -384,6 +391,7 @@ class Advert(models.Model):
         ('4', 'indefini'),
     )
 
+
     title = models.CharField('title Advert', max_length=30)
     advert_date = models.DateTimeField('Advert date', auto_now_add=True)
     advert_state = models.CharField('Advert state', max_length=1,
@@ -402,12 +410,13 @@ class Advert(models.Model):
     volume = models.CharField('volume advert', max_length=1, choices=VOLUME)
     weight = models.IntegerField(blank=True, null=True)
     quantity = models.IntegerField()
-    forecast_time = models.DateTimeField('forecast time')
-    forecast_price = models.FloatField()
     buy_place = models.CharField('buy place', max_length=1, choices=BUY_PLACE)
     advert_user = models.ForeignKey(User, on_delete=models.CASCADE)
     advert_address = models.ForeignKey(Address, on_delete=models.CASCADE)
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+    constraint_time_begin = models.TimeField('time begin', blank=True, null=True)
+    constraint_time_end = models.TimeField('time end', blank=True, null=True)
+
 
     def save(self, *args, **kwargs):
         """Surcharge de la méthode save, qui permettait d'enregistrer un tuple.
@@ -439,7 +448,7 @@ class Recovery(models.Model):
 
     class Meta:
         db_table = 't_recoveries'
-        ordering = ('advert_date',)
+        ordering = ('recovery_datetime',)
 
 
 class Like(models.Model):

@@ -5,7 +5,7 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def _create_user(self, email, password, **extra_fields):
-        """Creates and saves a User with the given email and password."""
+        """ Créer et sauvegard un utilisateur qui a donné son e-mail et un mot de passe. """
         if not email:
             raise ValueError('The given email must be set')
         email = self.normalize_email(email)
@@ -15,10 +15,12 @@ class UserManager(BaseUserManager):
         return user
 
     def create_user(self, email, password=None, **extra_fields):
+        """ Créer un utilisateur lambda (qui n'est pas un super utilisateur). """
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, password, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
+        """ Créer un utlisateur qui est un super utilisateur. """
         extra_fields.setdefault('is_superuser', True)
 
         if extra_fields.get('is_superuser') is not True:

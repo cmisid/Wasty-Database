@@ -107,7 +107,8 @@ class Address(models.Model):
                                   null=True)
     address_city = models.ForeignKey(City, on_delete=models.CASCADE)
     district = models.ForeignKey(District, on_delete=models.CASCADE, blank=True, null=True)
-    location = geo.PointField(blank=False, null=False)
+    #location = geo.PointField(blank=False, null=False)
+    location = geo.PointField(blank=True, null=True)
 
     class Meta:
         db_table = 't_addresses'
@@ -149,7 +150,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField('Active', default=True)
     is_staff = models.BooleanField('Staff', default=False)
     last_name = models.CharField('Last name', max_length=64, blank=True)
-    oauth_id = models.CharField('OAuth id', max_length=128, unique=True)
+# oauth_id = models.CharField('OAuth id', max_length=128, unique=True)
+    oauth_id = models.CharField('OAuth id', max_length=128, blank=True, null=True)
     user_permission = models.IntegerField(blank=True, null=True)
     date_unsubscribe = models.DateTimeField('Date unsubscribe',  blank=True,
                                             null=True)
@@ -161,7 +163,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=10, blank=True, null=True)
     home_address = models.ForeignKey(Address, on_delete=models.CASCADE,
                                     blank=True, null=True)
-    car_size = models.CharField('car size', max_length=1, choices=SIZE, blank=True)
+    car_size = models.CharField('car size', max_length=1, choices=SIZE, blank=True, null=True)
 
     objects = UserManager()
 
@@ -376,6 +378,8 @@ class Advert(models.Model):
         ('1', 'en ligne'),
         ('2', 'expire'),
         ('3', 'recupere'),
+        ('4', 'valide'),
+        ('5', 'supprimer')
     )
 
     SITUATION = (

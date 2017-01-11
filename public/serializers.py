@@ -165,13 +165,17 @@ class CitySerializer(serializers.ModelSerializer):
             'city_name',
         )
 
+
 class DistrictSerializer(serializers.ModelSerializer):
     class Meta:
         model = District
         fields = (
-            'pickup_point_address',
-            'recovery_type',
+            'district_name',
+            'city',
+            'density',
+            'polygon',
         )
+
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
@@ -186,9 +190,9 @@ class AddressSerializer(serializers.ModelSerializer):
             'location',
         )
         read_only_fields = (
-            'address_city',
             'location',
         )
+
 
 class VisitSerializer(serializers.ModelSerializer):
     class Meta:
@@ -201,6 +205,7 @@ class VisitSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'visit_datetime',
         )
+
 
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:

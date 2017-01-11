@@ -118,21 +118,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Définition de la classe points de collectes, qui référence les
     différents points de collectes."""
     GENDER = (
-        ('M', 'Male'),
-        ('F', 'Female'),
+        ('M', 'Homme'),
+        ('F', 'Femme'),
     )
 
     CSP = (
-        ('1', 'agriculteur'),
-        ('2', 'artisans, comm, Cent.'),
-        ('3', 'cadres et prof. Intellectuels'),
-        ('4', 'prof intermediaire'),
-        ('5', 'employes'),
-        ('6', 'ouvriers'),
-        ('7', 'retraites'),
-        ('8', 'chomage'),
-        ('9', 'etudiant'),
-        ('10', 'autres'),
+        ('1', 'artisans, commercants, chefs entreprise'),
+        ('2', 'cadres et professions intellectuelles superieures'),
+        ('3', 'professions intermediaires'),
+        ('4', 'employes'),
+        ('5', 'ouvriers'),
+        ('6', 'retraites'),
+        ('7', 'chomeurs'),
+        ('8', 'etudiants'),
+        ('9', 'autres'),
     )
 
     SIZE = (
@@ -155,7 +154,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_permission = models.IntegerField(blank=True, null=True)
     date_unsubscribe = models.DateTimeField('Date unsubscribe',  blank=True,
                                             null=True)
-    gender = models.CharField(max_length=1, choices=GENDER, blank=True,
+    gender = models.CharField(max_length=10, choices=GENDER, blank=True,
                               null=True)
     date_birth = models.DateField('Date birth', blank=True, null=True)
     social_professional_category = models.CharField(max_length=2, choices=CSP,
@@ -163,7 +162,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=10, blank=True, null=True)
     home_address = models.ForeignKey(Address, on_delete=models.CASCADE,
                                     blank=True, null=True)
-    car_size = models.CharField('car size', max_length=1, choices=SIZE, blank=True, null=True)
+    car_size = models.CharField('car size', max_length=2, choices=SIZE, blank=True, null=True)
 
     objects = UserManager()
 
@@ -180,7 +179,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         Cette nouvelle méthode permet d'enregistrer l'image floutée de
         l'utilisateur avec une taille réduite."""
         if self.user_img:
-            placeholder = create_image_placeholder(self.img)
+            placeholder = create_image_placeholder(self.user_img)
             placeholder_io = BytesIO()
             placeholder.save(placeholder_io, format='JPEG')
 
@@ -210,14 +209,14 @@ class PickUpPoint(models.Model):
     """Définition de la classe points de collectes, qui référence les
     différents points de collectes."""
     RECOVERY_TYPE = (
-        ('1', 'recovery packaging'),
-        ('2', 'recovery glass'),
-        ('3', 'recovery textile'),
+        ('1', 'emballage'),
+        ('2', 'verre'),
+        ('3', 'textile'),
     )
 
     pickup_point_address = models.ForeignKey(Address, on_delete=models.CASCADE)
     recovery_type = models.CharField('recovery type', choices=RECOVERY_TYPE,
-                                     max_length=64)
+                                     max_length=2)
 
     class Meta:
         db_table = 't_pickup_Points'
@@ -232,13 +231,13 @@ class Category(models.Model):
         ('3', 'jardin'),
         ('4', 'materiaux'),
         ('5', 'electromenager'),
-        ('6', 'petits electromenagers'),
+        ('6', 'petits_electromenagers'),
         ('7', 'textiles'),
         ('8', 'vaisselles'),
         ('9', 'transports'),
         ('10', 'divers'),
     )
-    category_name = models.CharField('category name', max_length=1,
+    category_name = models.CharField('category name', max_length=2,
                                      choices=CATEGORY)
 
     class Meta:
@@ -262,7 +261,7 @@ class SubCategory(models.Model):
         ('11', 'porte'),
         ('12', 'pouf'),
         ('13', 'table'),
-        ('14', 'table de chevet'),
+        ('14', 'table_chevet'),
         ('15', 'tabouret'),
         ('16', 'bougeoire'),
         ('17', 'cadre'),
@@ -270,7 +269,7 @@ class SubCategory(models.Model):
         ('19', 'luminaire'),
         ('20', 'miroir'),
         ('21', 'pendule'),
-        ('22', 'rideau'),
+        ('22', 'rideaux'),
         ('23', 'tapis'),
         ('24', 'vase'),
         ('25', 'barbecue'),
@@ -291,60 +290,60 @@ class SubCategory(models.Model):
         ('40', 'four'),
         ('41', 'refrigerateur'),
         ('42', 'lave_vaisselle'),
-        ('43', 'lave-linge'),
-        ('44', 'poele à bois'),
+        ('43', 'lave_linge'),
+        ('44', 'poele_a_bois'),
         ('45', 'ventilateur'),
         ('46', 'balance'),
         ('47', 'batteur'),
         ('48', 'bouilloire'),
         ('49', 'cafetiere'),
         ('50', 'crepiere'),
-        ('51', 'fer a repasser'),
+        ('51', 'fer_a_repasser'),
         ('52', 'friteuse'),
         ('53', 'gauffrier'),
-        ('54', 'grille-pain'),
-        ('55', 'machine a fondue'),
-        ('56', 'pese personne'),
-        ('57', 'plancha'),
-        ('58', 'plaque de cuisson'),
-        ('59', 'raclette'),
-        ('60', 'radiateur'),
-        ('61', 'bonnet'),
-        ('62', 'chaussure'),
-        ('63', 'chemise'),
-        ('64', 'couverture'),
-        ('65', 'gants'),
-        ('66', 'pantalon'),
-        ('67', 'pull'),
-        ('68', 'serviette'),
-        ('69', 'short'),
-        ('70', 't-shirt'),
-        ('71', 'veste'),
-        ('72', 'assiette'),
-        ('73', 'casserole'),
-        ('74', 'faitout'),
-        ('75', 'plateau'),
-        ('76', 'saladier'),
-        ('77', 'theiere'),
-        ('78', 'verre'),
-        ('79', 'couvert'),
-        ('80', 'roller'),
-        ('81', 'skateboard'),
-        ('82', 'trottinette'),
-        ('83', 'velo'),
-        ('84', 'baignoire'),
-        ('85', 'bocal'),
-        ('86', 'boite'),
-        ('87', 'bouteille'),
-        ('88', 'lavabo'),
-        ('89', 'sac'),
-        ('90', 'tonneau'),
-        ('91', 'valise'),
-        ('92', 'mixeur'),
-        ('93', 'micro onde'),
-        ('94', 'poele'),
-        ('95', 'ski'),
-        ('96', 'snowboard'),
+        ('54', 'grille_pain'),
+        ('55', 'machine_a_fondue'),
+        ('56', 'micro_onde'),
+        ('57', 'mixeur'),
+        ('58', 'pese_personne'),
+        ('59', 'plancha'),
+        ('60', 'plaque_de_cuisson'),
+        ('61', 'raclette'),
+        ('62', 'radiateur'),
+        ('63', 'bonnet'),
+        ('64', 'chaussure'),
+        ('65', 'chemise'),
+        ('66', 'couverture'),
+        ('67', 'gant'),
+        ('68', 'pantalon'),
+        ('69', 'pull'),
+        ('70', 'serviette'),
+        ('71', 'short'),
+        ('72', 't_shirt'),
+        ('73', 'veste'),
+        ('74', 'assiette'),
+        ('75', 'carsserole'),
+        ('76', 'couvert'),
+        ('77', 'faitout'),
+        ('78', 'plateau'),
+        ('79', 'poele'),
+        ('80', 'saladier'),
+        ('81', 'theiere'),
+        ('82', 'verre'),
+        ('83', 'roller'),
+        ('84', 'skateboard'),
+        ('85', 'ski'),
+        ('86', 'snowboard'),
+        ('87', 'trottinette'),
+        ('88', 'velo'),
+        ('89', 'baignoire'),
+        ('90', 'bocal'),
+        ('91', 'boite'),
+        ('92', 'bouteille'),
+        ('93', 'lavabo'),
+        ('94', 'sac'),
+        ('95', 'tonneau'),
+        ('96', 'valise'),
     )
     sub_category_name = models.CharField('Sub-category name', max_length=2,
                                          choices=SUB_CATEGORY)
@@ -379,7 +378,7 @@ class Advert(models.Model):
         ('2', 'expire'),
         ('3', 'recupere'),
         ('4', 'valide'),
-        ('5', 'supprimer')
+        ('5', 'supprimer'),
     )
 
     SITUATION = (
@@ -400,21 +399,21 @@ class Advert(models.Model):
     advert_date = models.DateTimeField('Advert date', auto_now_add=True)
     advert_state = models.CharField('Advert state', max_length=1,
                                     choices=ADVERT_STATE)
-    situation = models.CharField('situation', max_length=1, choices=SITUATION)
+    situation = models.CharField('situation', max_length=2, choices=SITUATION)
     price = models.FloatField(blank=True, null=True)
-    type_place = models.CharField('type place ', max_length=1,
+    type_place = models.CharField('type place ', max_length=2,
                                   choices=TYPE_PLACE)
-    description = models.CharField('description', max_length=64, blank=True,
+    description = models.CharField('description', max_length=128, blank=True,
                                    null=True)
     advert_img = models.ImageField(upload_to='adverts', blank=True, null=True)
     advert_img_placeholder = models.ImageField(upload_to='adverts', blank=True,
                                                null=True)
-    object_state = models.CharField('stateObject', max_length=1,
+    object_state = models.CharField('stateObject', max_length=2,
                                     choices=OBJECT_STATE)
-    volume = models.CharField('volume advert', max_length=1, choices=VOLUME)
+    volume = models.CharField('volume advert', max_length=2, choices=VOLUME)
     weight = models.IntegerField(blank=True, null=True)
     quantity = models.IntegerField()
-    buy_place = models.CharField('buy place', max_length=1, choices=BUY_PLACE)
+    buy_place = models.CharField('buy place', max_length=2, choices=BUY_PLACE)
     advert_user = models.ForeignKey(User, on_delete=models.CASCADE)
     advert_address = models.ForeignKey(Address, on_delete=models.CASCADE)
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
@@ -427,7 +426,7 @@ class Advert(models.Model):
         Cette nouvelle méthode permet d'enregistrer l'image floutée de
         l'annonce avec une taille réduite."""
         if self.advert_img:
-            placeholder = create_image_placeholder(self.img)
+            placeholder = create_image_placeholder(self.advert_img)
             placeholder_io = BytesIO()
             placeholder.save(placeholder_io, format='JPEG')
             self.advert_img_placeholder.save(
@@ -480,15 +479,31 @@ class CenterOfInterest(models.Model):
     """Définition de la classe centres d'intérêts, qui recense les différents
     centres d'intérêts."""
     CENTERS_OF_INTEREST = (
-        ('1', 'jardin'),
-        ('2', 'sport'),
-        ('3', 'decoration'),
-        ('4', 'mode'),
-        ('5', 'bricolage'),
+        ('1', 'sport'),
+        ('2', 'theatre'),
+        ('3', 'cinema'),
+        ('4', 'voyage'),
+        ('5', 'musique'),
+        ('6', 'jeux_videos'),
+        ('7', 'informatique'),
+        ('8', 'recyclage'),
+        ('9', 'jardinage'),
+        ('10', 'animaux'),
+        ('11', 'photographie'),
+        ('12', 'lecture'),
+        ('13', 'peinture'),
+        ('14', 'decoration_interieure'),
+        ('15', 'peche'),
+        ('16', 'camping'),
+        ('17', 'mode'),
+        ('18', 'chasse'),
+        ('19', 'automobile'),
+        ('20', 'cuisine'),
+        ('21', 'autres'),
     )
 
     name_center_of_interest = models.CharField('name center of interest',
-                                               max_length=1,
+                                               max_length=2,
                                                choices=CENTERS_OF_INTEREST,
                                                blank=True, null=True)
 

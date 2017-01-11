@@ -34,7 +34,7 @@ def advert_address_exist(payload):
             )
             address = new_address.save()
             return(address.id)
-    else if 'street_number', 'street_name' in payload:
+    elif 'street_number', 'street_name' in payload:
         return(custom_post_user.address_exist(payload))
     else:
         return 'ERROR'
@@ -59,7 +59,7 @@ def post_advert(request):
             object_state=payload.get('object_state'),
             volume=payload.get('volume'),
             weight=payload.get('weight'),
-            quantity=payload.get('quantity'),
+            quantity=payload.get('quantity', 1),
             buy_place=payload.get('buy_place'),
             constraint_time_begin=payload.get('constraint_time_begin'),
             constraint_time_end=payload.get('constraint_time_end'),

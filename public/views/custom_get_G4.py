@@ -46,6 +46,7 @@ def nb_user_get(request):
 #         return HttpResponse(status=400)
 
 #extract(year from date(date_joined)))
+#SUBSTR(to_char(),1,1)
 def evolution_users_number_users(request):
     """ Donne le nombre d utilisateurs ayant créés un compte cette année."""
     result = []
@@ -53,7 +54,7 @@ def evolution_users_number_users(request):
         cur = connection.cursor()
         cur.execute("""
             SELECT
-                SUBSTR(to_char(extract(year from date(date_joined))),1,1) , id
+                extract(year from date(date_joined)) , id
             FROM
                 t_users
         """)

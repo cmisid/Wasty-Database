@@ -65,39 +65,46 @@ def CenterOfInterest_exist(CenterInterest):
         return HttpResponse(status=400)
 
 
+@csrf_exempt
+def gender_exist(payload):
+    name_gender = payload.get('gender')
+    g = {'Homme': 'M', 'Femme': 'F'}
+    return g[name_gender]
+
+@csrf_exempt
 def post_user(request):
-    try:
-        payload = json.loads(request.body)
-
-        if User.objects.filter(email=payload['email']).exists():
-            return HttpResponse(status=400)
-
-        new_user = User(
-            email=test_email(payload),
-            password=set_password(self.payload.get('password')),
-            first_name=payload.get('first_name'),
-            last_name=payload.get('last_name'),
-            user_img=payload.get('user_img'),
-            is_active=payload.get('is_active'),
-            is_staff=payload.get('is_staff'),
-            user_permission=payload.get('user_permission'),
-            date_birth=payload.get('date_bitrh'),
-            social_professional_category=payload.get('social_professional_category'),
-            gender=payload.get('gender'),
-            phone_number=payload.get('phone_number'),
-            car_size=payload.get('car_size'),
-            home_address=adress_exist(payload)
-        )
-
-        new_user.save()
-
-        for CenterOfInterest in payload.get('name_center_of_interest'):
-                new_InterestFor = InterestFor(
-                    user=new_user.id,
-                    center_of_interest=CenterOfInterest_exist(CenterOfInterest)
-                )
-                new_InterestFor.save()
-
-        return HttpResponse(status=201)
-    except:
+    #try:
+    payload = json.loads(request.body.decode())
+    print(payload.get('gender'))
+    if User.objects.filter(email=payload['email']).exists():
         return HttpResponse(status=400)
+
+    new_user = User(
+        email=test_email(payload),
+        #password=set_password(self.payload.get('password')),
+        first_name=payload.get('first_name'),
+        last_name=payload.get('last_name'),
+        user_img=payload.get('user_img', null),
+        is_active=payload.get('is_active', True),
+        is_staff=payload.get('is_staff', False),
+        user_permission=payload.get('user_permission', 0),
+        # date_birth=payload.get('date_bitrh'),
+        #social_professional_category=payload.get('social_professional_category'),
+        gender=gender_exist(payload),
+        #phone_number=payload.get('phone_number'),
+        # car_size=payload.get('car_size'),
+        # home_address=address_exist(payload)
+    )
+
+    new_user.save()
+
+    # for CenterOfInterest in payload.get('name_center_of_interest'):
+    #         new_InterestFor = InterestFor(
+    #             user=new_user.id,
+    #             center_of_interest=CenterOfInterest_exist(CenterOfInterest)
+    #         )
+    #         new_InterestFor.save()
+
+    return HttpResponse(status=201)
+    # except:
+    #     return HttpResponse(status=400)

@@ -14,7 +14,7 @@ from .util import create_image_placeholder
 
 class City(models.Model):
     """Définition de la classe ville, qui référence les différentes villes."""
-    city_name = models.CharField(max_length=128)
+    city_name = models.CharField(max_length=1028)
 
     class Meta:
         db_table = 't_cities'
@@ -87,7 +87,7 @@ class District(models.Model):
         ('60', 'SEPT DENIERS'),
     )
 
-    district_name = models.CharField('name district', max_length=2,
+    district_name = models.CharField('name district', max_length=20,
                                      choices=DISTRICT_NAME)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     density = models.IntegerField(blank=True, null=True)
@@ -101,9 +101,9 @@ class Address(models.Model):
     """Définition de la classe adresse, qui référence les différentes
     adresses."""
     street_number = models.IntegerField(null=True)
-    street_name = models.CharField('Street name', max_length=128)
+    street_name = models.CharField('Street name', max_length=1028)
     postal_code = models.IntegerField()
-    complement = models.CharField('Complement address', max_length=128,
+    complement = models.CharField('Complement address', max_length=1028, blank=True,
                                   null=True)
     address_city = models.ForeignKey(City, on_delete=models.CASCADE)
     district = models.ForeignKey(District, on_delete=models.CASCADE, blank=True, null=True)
@@ -142,27 +142,27 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     date_joined = models.DateTimeField('Date joined', auto_now_add=True)
     email = models.EmailField('Email address', unique=True)
-    first_name = models.CharField('First name', max_length=64, blank=True)
+    first_name = models.CharField('First name', max_length=604, blank=True)
     user_img = models.ImageField(upload_to='users', blank=True, null=True)
     user_img_placeholder = models.ImageField(upload_to='users', blank=True,
                                              null=True)
     is_active = models.BooleanField('Active', default=True)
     is_staff = models.BooleanField('Staff', default=False)
-    last_name = models.CharField('Last name', max_length=64, blank=True)
-# oauth_id = models.CharField('OAuth id', max_length=128, unique=True)
-    oauth_id = models.CharField('OAuth id', max_length=128, blank=True, null=True)
+    last_name = models.CharField('Last name', max_length=604, blank=True)
+# oauth_id = models.CharField('OAuth id', max_length=1028, unique=True)
+    oauth_id = models.CharField('OAuth id', max_length=1028, blank=True, null=True)
     user_permission = models.IntegerField(blank=True, null=True)
     date_unsubscribe = models.DateTimeField('Date unsubscribe',  blank=True,
                                             null=True)
-    gender = models.CharField(max_length=10, choices=GENDER, blank=True,
+    gender = models.CharField(max_length=100, choices=GENDER, blank=True,
                               null=True)
     date_birth = models.DateField('Date birth', blank=True, null=True)
-    social_professional_category = models.CharField(max_length=2, choices=CSP,
+    social_professional_category = models.CharField(max_length=500, choices=CSP,
                                                    blank=True, null=True)
-    phone_number = models.CharField(max_length=10, blank=True, null=True)
+    phone_number = models.CharField(max_length=100, blank=True, null=True)
     home_address = models.ForeignKey(Address, on_delete=models.CASCADE,
                                     blank=True, null=True)
-    car_size = models.CharField('car size', max_length=2, choices=SIZE, blank=True, null=True)
+    car_size = models.CharField('car size', max_length=20, choices=SIZE, blank=True, null=True)
 
     objects = UserManager()
 
@@ -216,7 +216,7 @@ class PickUpPoint(models.Model):
 
     pickup_point_address = models.ForeignKey(Address, on_delete=models.CASCADE)
     recovery_type = models.CharField('recovery type', choices=RECOVERY_TYPE,
-                                     max_length=2)
+                                     max_length=20)
 
     class Meta:
         db_table = 't_pickup_Points'
@@ -237,7 +237,7 @@ class Category(models.Model):
         ('9', 'transports'),
         ('10', 'divers'),
     )
-    category_name = models.CharField('category name', max_length=2,
+    category_name = models.CharField('category name', max_length=20,
                                      choices=CATEGORY)
 
     class Meta:
@@ -345,7 +345,7 @@ class SubCategory(models.Model):
         ('95', 'tonneau'),
         ('96', 'valise'),
     )
-    sub_category_name = models.CharField('Sub-category name', max_length=2,
+    sub_category_name = models.CharField('Sub-category name', max_length=20,
                                          choices=SUB_CATEGORY)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
@@ -395,26 +395,26 @@ class Advert(models.Model):
     )
 
 
-    title = models.CharField('title Advert', max_length=30)
+    title = models.CharField('title Advert', max_length=300)
     advert_date = models.DateTimeField('Advert date', auto_now_add=True)
-    advert_state = models.CharField('Advert state', max_length=1,
+    advert_state = models.CharField('Advert state', max_length=10,
                                     choices=ADVERT_STATE)
-    situation = models.CharField('situation', max_length=2, choices=SITUATION)
+    situation = models.CharField('situation', max_length=20, choices=SITUATION)
     price = models.FloatField(blank=True, null=True)
-    type_place = models.CharField('type place ', max_length=2,
+    type_place = models.CharField('type place ', max_length=20,
                                   choices=TYPE_PLACE)
-    description = models.CharField('description', max_length=128, blank=True,
+    description = models.CharField('description', max_length=1028, blank=True,
                                    null=True)
     advert_img = models.ImageField(upload_to='adverts', blank=True, null=True)
     advert_img_placeholder = models.ImageField(upload_to='adverts', blank=True,
                                                null=True)
-    object_state = models.CharField('stateObject', max_length=2,
+    object_state = models.CharField('stateObject', max_length=20,
                                     choices=OBJECT_STATE)
-    volume = models.CharField('volume advert', max_length=2, choices=VOLUME)
+    volume = models.CharField('volume advert', max_length=20, choices=VOLUME)
     weight = models.IntegerField(blank=True, null=True)
     quantity = models.IntegerField()
-    buy_place = models.CharField('buy place', max_length=2, choices=BUY_PLACE)
-    advert_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    buy_place = models.CharField('buy place', max_length=20, choices=BUY_PLACE)
+    advert_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     advert_address = models.ForeignKey(Address, on_delete=models.CASCADE)
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     constraint_time_begin = models.TimeField('time begin', blank=True, null=True)
@@ -503,7 +503,7 @@ class CenterOfInterest(models.Model):
     )
 
     name_center_of_interest = models.CharField('name center of interest',
-                                               max_length=2,
+                                               max_length=20,
                                                choices=CENTERS_OF_INTEREST,
                                                blank=True, null=True)
 

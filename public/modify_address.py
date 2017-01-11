@@ -33,7 +33,7 @@ def geocoder(address):
         address = json.loads(response)[0]
         latitude = float(address['lat'])
         longitude = float(address['lon'])
-        return (latitude,longitude)
+        return (latitude, longitude)
     except:
         return 'ERROR'
         
@@ -72,3 +72,6 @@ def geocoder_reverse(address):
 		
 #print(geocoder_reverse([43.5542267,1.4666994]))
 #print(geocoder(("6"," chemin des Sauges"," 31400"," Toulouse")))
+
+
+

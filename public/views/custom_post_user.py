@@ -7,6 +7,7 @@ from django.contrib.gis.geos import Point
 
 from public.models import User, Address, City, CenterOfInterest, InterestFor, District
 from public import modify_address
+from public import data_insert as di
 
 @csrf_exempt
 def city_exist(payload):
@@ -14,84 +15,22 @@ def city_exist(payload):
     city_name = payload.get('city_name')
     if not City.objects.filter(city_name=city_name).exists():
         city = City(city_name=city_name).save()
+        city = City.objects.get(city_name=city_name)
     else:
         city = City.objects.get(city_name=city_name)
     return(city.id)
 
+
 @csrf_exempt
 def district_exist(payload):
     name_district = payload.get('district')
-    print(name_district)
-    if name_district is None:
-        return (None)
+    if not District.objects.filter(id=1).exists():
+        di.insert_district(di.read_json('./Data/district.json'), 1)
+    elif name_district is None:
+        return (District.objects.get(district_name='NULL').id)
     else:
-        district = {'NULL' : '0',
-                'CAPITOLE' : '1',
-                'SAINT-GEORGES' : '2',
-                'JUNCASSE - ARGOULETS' : '3',
-                'GRAMONT' : '4',
-                'LA TERRASSE' : '5',
-                'ZONES D\'ACTIVITES SUD' : '6',
-                'FONTAINE-LESTANG' : '7',
-                'PONT-DES-DEMOISELLES' : '8',
-                'PATTE D\'OIE' : '9',
-                'LE BUSCA' : '10',
-                'CROIX-DE-PIERRE' : '11',
-                'REYNERIE' : '12',
-                'MATABIAU' : '13',
-                'FAOURETTE' : '14',
-                'SAINT-ETIENNE' : '15',
-                'SAINT-SIMON' : '16',
-                'LES IZARDS' : '17',
-                'SAINT-MARTIN-DU-TOUCH' : '18',
-                'LES CHALETS' : '19',
-                'LARDENNE' : '20',
-                'ARENES' : '21',
-                'AMIDONNIERS' : '22',
-                'MIRAIL-UNIVERSITE' : '23',
-                'LES PRADETTES' : '24',
-                'COMPANS' : '25',
-                'GINESTOUS' : '26',
-                'SAINT-MICHEL' : '27',
-                'FER-A-CHEVAL' : '28',
-                'BELLEFONTAINE' : '29',
-                'SOUPETARD' : '30',
-                'PAPUS' : '31',
-                'POUVOURVILLE' : '32',
-                'BASSO-CAMBO' : '33',
-                'ARNAUD BERNARD' : '34',
-                'SAINT-AUBIN - DUPUY' : '35',
-                'JULES JULIEN' : '36',
-                'CROIX-DAURADE' : '37',
-                'CASSELARDIT' : '38',
-                'MINIMES' : '39',
-                'RAMIER' : '40',
-                'LA CEPIERE' : '41',
-                'EMPALOT' : '42',
-                'LALANDE' : '43',
-                'RANGUEIL - CHR - FACULTES' : '44',
-                'CARMES' : '45',
-                'LA FOURGUETTE' : '46',
-                'BARRIERE-DE-PARIS' : '47',
-                'MONTAUDRAN - LESPINET' : '48',
-                'SAINT-AGNE' : '49',
-                'PURPAN' : '50',
-                'SAUZELONG - RANGUEIL' : '51',
-                'SAINT-CYPRIEN' : '52',
-                'BAGATELLE' : '53',
-                'GUILHEMERY' : '54',
-                'MARENGO - JOLIMONT' : '55',
-                'COTE PAVEE' : '56',
-                'CHATEAU-DE-L\'HERS' : '57',
-                'ROSERAIE' : '58',
-                'BONNEFOY' : '59',
-                'SEPT DENIERS' : '60'
-                }
-        new_district = District(district_name=district[name_district],
-                                city_id=city_exist(payload)).save()
-        print(city_exist(payload))
-        print("coucou", new_district)
-    return (None)
+        return(District.objects.get(district_name=name_district).id)
+
 
 @csrf_exempt
 def address_exist(payload):
@@ -100,20 +39,26 @@ def address_exist(payload):
     a_name = payload.get('street_name')
     a_cp = payload.get('postal_code')
     a_complement = payload.get('complement', None)
+    a_ville = city_exist(payload)
+    print(district_exist(payload))
+    #print(a_number, a_name, a_cp, a_ville)
+    #print(modify_address.geocoder(('2','chemin des sauges','31400','TOULOUSE')))
+
     if not Address.objects.filter(street_number=a_number, street_name=a_name, postal_code=a_cp, complement=a_complement).exists():
             new_address = Address(
                 street_number=a_number,
                 street_name=a_name,
                 postal_code=a_cp,
-                address_city_id=city_exist(payload),
-                #district_id=district_exist(payload),
-                location=Point(modify_address.geocoder((a_number, a_name, a_cp, payload.get('city_name'))))
+                address_city_id=a_ville,
+                district_id=district_exist(payload),
+                location=Point(modify_address.geocoder((a_number, a_name, a_cp, a_ville)))
             )
             address = new_address.save()
+            address = Address.objects.get(street_number=a_number, street_name=a_name, postal_code=a_cp, complement=a_complement)
     else:
         address = Address.objects.get(street_number=a_number, street_name=a_name, postal_code=a_cp, complement=a_complement)
 
-        return(address.id)
+    return(address.id)
 
 
 @csrf_exempt
@@ -124,38 +69,17 @@ def test_email(payload):
     else:
         return HttpResponse(status=400)
 
+
 @csrf_exempt
 def CenterOfInterest_exist(CenterInterest):
-    print(CenterInterest)
-    if CenterInterest is None:
-        return 'ERROR'
+    print("rentre1")
+    if not CenterOfInterest.objects.filter(id=1).exists():
+        print("rentre2")
+        di.insert_centerofinterest(di.read_json('./Data/centerInterest.json'))
+        return(CenterOfInterest.objects.get(name_center_of_interest=CenterInterest).id)
     else:
-        center = {'sport': '1',
-        'theatre': '2',
-        'cinema': '3',
-        'voyage': '4',
-        'musique': '5',
-        'jeux_videos': '6',
-        'informatique': '7',
-        'recyclage': '8',
-        'jardinage': '9',
-        'animaux': '10',
-        'photographie': '11',
-        'lecture': '12',
-        'peinture': '13',
-        'decoration_interieure': '14',
-        'peche': '15',
-        'camping': '16',
-        'mode': '17',
-        'chasse': '18',
-        'automobile': '19',
-        'cuisine': '20',
-        'autres': '21'
-        }
-        new_center = CenterOfInterest(name_center_of_interest=1).save()
-        print(new_center)
-        return (new_center.id)
-
+        print(CenterOfInterest.objects.get(name_center_of_interest=CenterInterest))
+        return(CenterOfInterest.objects.get(name_center_of_interest=CenterInterest).id)
 
 @csrf_exempt
 def gender_exist(payload):
@@ -222,12 +146,13 @@ def post_user(request):
     new_user.set_password(payload.get('password'))
     new_user.save()
 
-    # for CenterOfInterest in payload.get('name_center_of_interest'):
-    #         new_InterestFor = InterestFor(
-    #             user_id=new_user.id,
-    #             center_of_interest_id=CenterOfInterest_exist(CenterOfInterest)
-    #         )
-    #         new_InterestFor.save()
+    if payload.get('name_center_of_interest'):
+        for CenterOfInterest in payload.get('name_center_of_interest'):
+                new_InterestFor = InterestFor(
+                    user_id=User.objects.get(email=payload['email']).id,
+                    center_of_interest_id=CenterOfInterest_exist(CenterOfInterest)
+                )
+                new_InterestFor.save()
 
     return HttpResponse(status=201)
     # except:

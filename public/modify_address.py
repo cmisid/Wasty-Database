@@ -35,7 +35,7 @@ def geocoder(address):
         longitude = float(address['lon'])
         return (latitude, longitude)
     except:
-        return 'ERROR'
+        return (0,0)
         
 #         
 # def geocoder_inverse(adresse):

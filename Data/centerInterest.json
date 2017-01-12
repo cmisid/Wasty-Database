@@ -1,0 +1,23 @@
+[
+{"center": "sport"},
+{"center" : "theatre"},
+{"center" : "cinema"},
+{"center" : "voyage"},
+{"center" : "musique"},
+{"center" : "jeux_videos"},
+{"center" : "informatique"},
+{"center" : "recyclage"},
+{"center" : "jardinage"},
+{"center" : "animaux"},
+{"center" : "photographie"},
+{"center" : "lecture"},
+{"center" : "peinture"},
+{"center" : "decoration_interieure"},
+{"center" : "peche"},
+{"center" : "camping"},
+{"center" : "mode"},
+{"center" : "chasse"},
+{"center" : "automobile"},
+{"center" : "cuisine"},
+{"center" : "autres"}
+]

@@ -7,19 +7,19 @@ from public.models import Advert, User
 
 
 def get_user(request, user_id):
-	"""recupere les infos d'un user"""
-	try:
-		user = User.objects.get(pk=user_id)
-		print(user)
-		home_address = user.home_address
-		return JsonResponse({
-			'first_name': user.first_name,
-			'last_name': user.last_name,
-			'address': {
-			'street_name': home_address.street_name,
-			'street_number': home_address.street_number
-			}
-		})
+    """recupere les infos d'un user"""
+    try:
+        user = User.objects.get(pk=user_id)
+        print(user)
+        home_address = user.home_address
+        return JsonResponse({
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'address': {
+            'street_name': home_address.street_name,
+            'street_number': home_address.street_number
+            }
+            })
     except:
         return HttpResponse(status=400)
 
@@ -39,49 +39,50 @@ def get_post_users(request, id):
 	except:
 		return HttpResponse(status=400)
 
+
 def get_annonce_valide(request, id_cat):
-	"""Recupere les annonces valide ayant une categorie donnee"""
+    """Recupere les annonces valide ayant une categorie donnee"""
     try:
-	    liste_res=[]
-	    
-	    category = SubCategory.objects.filter(category_id=id_cat)
-	    
-	    for cat in category.all():
-	    
-	        sub_category= cat.id
-	        
-	        state=(Advert.objects.get(sub_category_id=sub_category)).advert_state
-	        id_annonce = (Advert.objects.get(sub_category_id=sub_category))
-	        
-	        if state=='4':
-	            dic_res={}
-	            dic_res['advert_id']=id_annonce.id
-	            dic_res['title']=id_annonce.title
-	            dic_res['advert_state']=id_annonce.advert_state
-	            dic_res['situation']=id_annonce.situation
-	            dic_res['price']=id_annonce.price
-	            dic_res['type_place']=id_annonce.type_place
-	            dic_res['description']=id_annonce.description
-	            dic_res['object_state']=id_annonce.object_state
-	            
-	            dic_res['volume']=id_annonce.volume
-	            
-	            dic_res['weight']=id_annonce.weight
-	            
-	            dic_res['quantity']=id_annonce.quantity
-	            
-	            dic_res['buy_place']=id_annonce.buy_place
-	            dic_res['advert_address_id']=id_annonce.advert_address_id
-	            dic_res['advert_user_id']=id_annonce.advert_user_id
-	            dic_res['sub_category_id']=id_annonce.sub_category_id
-	            liste_res.append(dic_res)
-	    return HttpResponse(json.dumps(liste_res, indent=2))
-	except:
-		return HttpResponse(status=400)
+        liste_res=[]
+        
+        category = SubCategory.objects.filter(category_id=id_cat)
+        
+        for cat in category.all():
+        
+            sub_category= cat.id
+            
+            state=(Advert.objects.get(sub_category_id=sub_category)).advert_state
+            id_annonce = (Advert.objects.get(sub_category_id=sub_category))
+            
+            if state=='4':
+                dic_res={}
+                dic_res['advert_id']=id_annonce.id
+                dic_res['title']=id_annonce.title
+                dic_res['advert_state']=id_annonce.advert_state
+                dic_res['situation']=id_annonce.situation
+                dic_res['price']=id_annonce.price
+                dic_res['type_place']=id_annonce.type_place
+                dic_res['description']=id_annonce.description
+                dic_res['object_state']=id_annonce.object_state
+                
+                dic_res['volume']=id_annonce.volume
+                
+                dic_res['weight']=id_annonce.weight
+                
+                dic_res['quantity']=id_annonce.quantity
+                
+                dic_res['buy_place']=id_annonce.buy_place
+                dic_res['advert_address_id']=id_annonce.advert_address_id
+                dic_res['advert_user_id']=id_annonce.advert_user_id
+                dic_res['sub_category_id']=id_annonce.sub_category_id
+                liste_res.append(dic_res)
+        return HttpResponse(json.dumps(liste_res, indent=2))
+    except:
+        return HttpResponse(status=400)
 
 
 def visit_and_likes(request, id):
-	"""Recupere les pages likees et visitees par un user"""
+    """Recupere les pages likees et visitees par un user"""
     try:
         if Like.objects.filter(user_like_id=id).exists():
             user_like=Like.objects.get(user_like_id=id)
@@ -106,7 +107,7 @@ def visit_and_likes(request, id):
 
 
 def get_annonces(request):
-	"""Recupere les 20 annonces publies les plus recentes et valide"""
+    """Recupere les 20 annonces publies les plus recentes et valide"""
     advert=Advert.objects.order_by('advert_date')[:20]
     return JsonResponse({
         'advert': [
@@ -131,18 +132,19 @@ def get_annonces(request):
                 'constraint_time_begin'  : item. constraint_time_begin,
                 'constraint_time_end'  : item.constraint_time_end,
             }
-        for item in advert
-        if item.id 
+            for item in advert
+            if item.id
         ]
     })
 
+
 def get_nb(request, id_advert):
-	"""Recupere le nombre de likes et de visites d'une annonce"""
+    """Recupere le nombre de likes et de visites d'une annonce"""
     try:
         advert_visit=Visit.objects.filter(advert_visit_id=id_advert).count()
         
         advert_like=Like.objects.filter(advert_like_id=id_advert).count()
-    
+
         return JsonResponse({
             'advert_id' : id_advert,
             'count visit' : advert_visit,

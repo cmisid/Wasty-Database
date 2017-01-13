@@ -24,29 +24,6 @@ def nb_user_get(request):
         return HttpResponse(status=400)
 
 
-# def users_number_users_year_get(request, pyear): 
-#     """ Donne le nombre d utilisateurs ayant créés un compte cette année."""
-#     result = []
-#     try:
-#         cur = connection.cursor()
-#         cur.execute("""
-#            SELECT
-#                count(id)
-#             FROM
-#                 t_users
-#             WHERE
-#                 pyear >= year(date_joined);
-#         """)
-#         columns = ['n_user_year']
-#         print(columns)
-#         for row in cur.fetchall():
-#             result.append(dict(zip(columns, row)))
-#         return HttpResponse(json.dumps(result, indent=2))
-#     except:
-#         return HttpResponse(status=400)
-
-#extract(year from date(date_joined)))
-#SUBSTR(to_char(),1,1)
 def evolution_users_number_users(request):
     """ Donne le nombre d utilisateurs ayant créés un compte cette année."""
     result = []
@@ -66,5 +43,3 @@ def evolution_users_number_users(request):
         return HttpResponse(json.dumps(result, indent=2))
     except:
         return HttpResponse(status=400)
-
-

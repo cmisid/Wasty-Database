@@ -1,0 +1,34 @@
+[
+  {
+    "email": "florence@gmail.com",
+    "title": "Canapé cuir",
+    "coordinates": {
+      "lat": 48.5712432,
+      "lon": -3.1075241999999434
+    },
+    "city_name": "Toulouse"
+  },
+  {
+    "email": "florence@gmail.com",
+    "title": "Portes coulissantes",
+    "img": "https://unsplash.it/600/400/",
+    "coordinates": {
+      "lat": 48.560811,
+      "lon": -3.148260
+    },
+    "street_name": "Rue Jeanne d'Arc",
+        "city_name": "Toulouse"
+  },
+  {
+    "email": "florence@gmail.com",
+    "title": "Frigo",
+    "description":"maintient au frais",
+    "coordinates": {
+      "lat": 48.571243,
+      "lon": -3.107527
+    },
+    "constraint_time_begin": "14:00:00",
+    "constraint_time_end": "16:00:00",
+    "city_name": "Toulouse"
+  }
+]

@@ -23,72 +23,6 @@ class City(models.Model):
 class District(models.Model):
     """Définition de la classe quartier, qui référence les différents
     quartiers."""
-    # DISTRICT_NAME = (
-    #     ('0', 'NULL'),
-    #     ('1', 'CAPITOLE'),
-    #     ('2', 'SAINT-GEORGES'),
-    #     ('3', 'JUNCASSE - ARGOULETS'),
-    #     ('4', 'GRAMONT'),
-    #     ('5', 'LA TERRASSE'),
-    #     ('6', 'ZONES D\'ACTIVITES SUD'),
-    #     ('7', 'FONTAINE-LESTANG'),
-    #     ('8', 'PONT-DES-DEMOISELLES'),
-    #     ('9', 'PATTE D\'OIE'),
-    #     ('10', 'LE BUSCA'),
-    #     ('11', 'CROIX-DE-PIERRE'),
-    #     ('12', 'REYNERIE'),
-    #     ('13', 'MATABIAU'),
-    #     ('14', 'FAOURETTE'),
-    #     ('15', 'SAINT-ETIENNE'),
-    #     ('16', 'SAINT-SIMON'),
-    #     ('17', 'LES IZARDS'),
-    #     ('18', 'SAINT-MARTIN-DU-TOUCH'),
-    #     ('19', 'LES CHALETS'),
-    #     ('20', 'LARDENNE'),
-    #     ('21', 'ARENES'),
-    #     ('22', 'AMIDONNIERS'),
-    #     ('23', 'MIRAIL-UNIVERSITE'),
-    #     ('24', 'LES PRADETTES'),
-    #     ('25', 'COMPANS'),
-    #     ('26', 'GINESTOUS'),
-    #     ('27', 'SAINT-MICHEL'),
-    #     ('28', 'FER-A-CHEVAL'),
-    #     ('29', 'BELLEFONTAINE'),
-    #     ('30', 'SOUPETARD'),
-    #     ('31', 'PAPUS'),
-    #     ('32', 'POUVOURVILLE'),
-    #     ('33', 'BASSO-CAMBO'),
-    #     ('34', 'ARNAUD BERNARD'),
-    #     ('35', 'SAINT-AUBIN - DUPUY'),
-    #     ('36', 'JULES JULIEN'),
-    #     ('37', 'CROIX-DAURADE'),
-    #     ('38', 'CASSELARDIT'),
-    #     ('39', 'MINIMES'),
-    #     ('40', 'RAMIER'),
-    #     ('41', 'LA CEPIERE'),
-    #     ('42', 'EMPALOT'),
-    #     ('43', 'LALANDE'),
-    #     ('44', 'RANGUEIL - CHR - FACULTES'),
-    #     ('45', 'CARMES'),
-    #     ('46', 'LA FOURGUETTE'),
-    #     ('47', 'BARRIERE-DE-PARIS'),
-    #     ('48', 'MONTAUDRAN - LESPINET'),
-    #     ('49', 'SAINT-AGNE'),
-    #     ('50', 'PURPAN'),
-    #     ('51', 'SAUZELONG - RANGUEIL'),
-    #     ('52', 'SAINT-CYPRIEN'),
-    #     ('53', 'BAGATELLE'),
-    #     ('54', 'GUILHEMERY'),
-    #     ('55', 'MARENGO - JOLIMONT'),
-    #     ('56', 'COTE PAVEE'),
-    #     ('57', 'CHATEAU-DE-L\'HERS'),
-    #     ('58', 'ROSERAIE'),
-    #     ('59', 'BONNEFOY'),
-    #     ('60', 'SEPT DENIERS'),
-    # )
-
-    # district_name = models.CharField('name district', max_length=20,
-    #                                  choices=DISTRICT_NAME)
     district_name = models.CharField('name district', max_length=200)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     density = models.IntegerField(blank=True, null=True)
@@ -108,7 +42,6 @@ class Address(models.Model):
                                   null=True)
     address_city = models.ForeignKey(City, on_delete=models.CASCADE)
     district = models.ForeignKey(District, on_delete=models.CASCADE, blank=True, null=True)
-    #location = geo.PointField(blank=False, null=False)
     location = geo.PointField(blank=True, null=True)
 
     class Meta:
@@ -150,7 +83,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField('Active', default=True)
     is_staff = models.BooleanField('Staff', default=False)
     last_name = models.CharField('Last name', max_length=604, blank=True)
-# oauth_id = models.CharField('OAuth id', max_length=1028, unique=True)
+    #oauth_id = models.CharField('OAuth id', max_length=1028, unique=True)
     oauth_id = models.CharField('OAuth id', max_length=1028, blank=True, null=True)
     user_permission = models.IntegerField(blank=True, null=True)
     date_unsubscribe = models.DateTimeField('Date unsubscribe',  blank=True,
@@ -479,34 +412,6 @@ class Visit(models.Model):
 class CenterOfInterest(models.Model):
     """Définition de la classe centres d'intérêts, qui recense les différents
     centres d'intérêts."""
-    # CENTERS_OF_INTEREST = (
-    #     ('1', 'sport'),
-    #     ('2', 'theatre'),
-    #     ('3', 'cinema'),
-    #     ('4', 'voyage'),
-    #     ('5', 'musique'),
-    #     ('6', 'jeux_videos'),
-    #     ('7', 'informatique'),
-    #     ('8', 'recyclage'),
-    #     ('9', 'jardinage'),
-    #     ('10', 'animaux'),
-    #     ('11', 'photographie'),
-    #     ('12', 'lecture'),
-    #     ('13', 'peinture'),
-    #     ('14', 'decoration_interieure'),
-    #     ('15', 'peche'),
-    #     ('16', 'camping'),
-    #     ('17', 'mode'),
-    #     ('18', 'chasse'),
-    #     ('19', 'automobile'),
-    #     ('20', 'cuisine'),
-    #     ('21', 'autres'),
-    # )
-
-    # name_center_of_interest = models.CharField('name center of interest',
-    #                                            max_length=20,
-    #                                            choices=CENTERS_OF_INTEREST,
-    #                                            blank=True, null=True)
     name_center_of_interest = models.CharField('name center of interest', max_length=200, blank=True, null=True)
 
     class Meta:

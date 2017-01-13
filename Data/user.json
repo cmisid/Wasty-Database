@@ -1,0 +1,20 @@
+[{
+    "email": "shwarzou@gmail.com",
+    "first_name": "Arnold",
+    "last_name": "Schwarzenegger",
+    "password": "coucou"
+},
+{
+    "email": "florence@gmail.com",
+    "first_name": "flo",
+    "last_name": "canal",
+    "password": "cmi",
+    "street_number":"20",
+    "street_name":"rue du bonvoisin",
+    "postcode":"31400",
+    "city_name":"Toulouse",
+    "districts":"SAINT-AGNE",
+    "name_center_of_interest":["sport","jardinage"],
+    "gender":"Femme",
+    "car_size":"petite voiture"
+}]

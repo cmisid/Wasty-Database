@@ -1,10 +1,10 @@
 import json
 import psycopg2
-from public.models import District, City, CenterOfInterest
+import requests
+
+from public.models import District, City, CenterOfInterest, User
 from django.db import connection
 from django.contrib.gis.geos import Point
-
-cur = connection.cursor() 
 
 
 def read_json(fichier):
@@ -35,4 +35,5 @@ def insert_centerofinterest(data):
 
 def insert_category(data):
     for i in range(0, 9):
+        print(data[i])
         new_center = Category(category_name=data[i]['category']).save()
